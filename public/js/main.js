@@ -30,12 +30,13 @@ if (siteNav) {
 // Newsletter form
 function handleNewsletterSubmit(e) {
   e.preventDefault();
-  const email = document.getElementById('newsletter-email').value;
-  const form = document.getElementById('newsletter-form');
-  const success = document.getElementById('newsletter-success');
-  if (email && form && success) {
+  const form = e.target;
+  const emailInput = form.querySelector('input[type="email"]');
+  const email = emailInput ? emailInput.value : '';
+  const success = form.parentElement.querySelector('.newsletter-success');
+  if (email) {
     form.style.display = 'none';
-    success.style.display = 'block';
+    if (success) success.style.display = 'block';
     // Save to Firestore
     if (typeof db !== 'undefined') {
       db.collection('newsletter').add({
