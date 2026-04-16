@@ -43,9 +43,15 @@ function handleNewsletterSubmit(e) {
         email: email,
         source: window.location.pathname,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => console.log('Newsletter saved'))
-        .catch(err => console.error('Newsletter save error:', err));
+      }).then(() => console.log('Newsletter saved to Firestore'))
+        .catch(err => console.error('Newsletter Firestore error:', err));
     }
+    // Save to Google Sheet
+    fetch('https://script.google.com/macros/s/AKfycbzBSQmh_v1JYcYXbuxXT2tfeCLOKPtZBKna8ZgLVkdKxl9-NQSsjzCilyaNasZ_cU91/exec', {
+      method: 'POST',
+      body: JSON.stringify({ email: email, source: window.location.pathname }),
+    }).then(() => console.log('Newsletter saved to Google Sheet'))
+      .catch(err => console.error('Newsletter Sheet error:', err));
   }
 }
 
