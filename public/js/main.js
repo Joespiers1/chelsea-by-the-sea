@@ -36,8 +36,15 @@ function handleNewsletterSubmit(e) {
   if (email && form && success) {
     form.style.display = 'none';
     success.style.display = 'block';
-    // TODO: wire to Resend/Firebase in a later step
-    console.log('Newsletter signup:', email);
+    // Save to Firestore
+    if (typeof db !== 'undefined') {
+      db.collection('newsletter').add({
+        email: email,
+        source: window.location.pathname,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => console.log('Newsletter saved'))
+        .catch(err => console.error('Newsletter save error:', err));
+    }
   }
 }
 
@@ -70,10 +77,24 @@ window.addEventListener('DOMContentLoaded', () => {
 // Waitlist form
 function handleWaitlistSubmit(e) {
   e.preventDefault();
+  const form = e.target;
   const success = document.getElementById('waitlist-success');
+  const inputs = form.querySelectorAll('.form-input');
+  const data = {
+    name: inputs[0] ? inputs[0].value : '',
+    email: inputs[1] ? inputs[1].value : '',
+    interest: inputs[2] ? inputs[2].value : '',
+    goals: inputs[3] ? inputs[3].value : '',
+    createdAt: typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+  };
   if (success) {
     success.style.display = 'block';
-    e.target.querySelector('button[type=submit]').style.display = 'none';
-    console.log('Waitlist signup captured');
+    form.querySelector('button[type=submit]').style.display = 'none';
+  }
+  // Save to Firestore
+  if (typeof db !== 'undefined') {
+    db.collection('waitlist').add(data)
+      .then(() => console.log('Waitlist saved'))
+      .catch(err => console.error('Waitlist save error:', err));
   }
 }
