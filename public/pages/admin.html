@@ -4,112 +4,386 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin — Chelsea by the Sea</title>
+  <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/theme.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <script defer src="/js/theme.js"></script>
-  <script defer src="/js/main.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--color-surface); color: var(--color-ink); font-size: 14px; min-height: 100vh; }
+
+    /* LOGIN */
+    .login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+    .login-card { background: var(--color-bg); border: 0.5px solid var(--color-line); padding: 48px 40px; width: 100%; max-width: 400px; }
+    .login-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: var(--color-ink); margin-bottom: 6px; }
+    .login-logo em { font-style: italic; color: var(--color-accent); }
+    .login-sub { font-size: 12px; color: var(--color-mist); margin-bottom: 32px; }
+    .login-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .login-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist); }
+    .login-input { padding: 11px 14px; border: 0.5px solid var(--color-line); background: var(--color-bg); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--color-ink); border-radius: 1px; outline: none; width: 100%; transition: border-color 0.2s; }
+    .login-input:focus { border-color: var(--color-accent); }
+    .login-btn { width: 100%; padding: 12px; background: var(--color-accent); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; border: none; cursor: pointer; margin-top: 8px; border-radius: 1px; }
+    .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .login-error { font-size: 12px; color: #c0392b; margin-top: 12px; text-align: center; display: none; }
+
+    /* ADMIN SHELL */
+    .admin-shell { display: none; min-height: 100vh; flex-direction: column; }
+    .admin-topbar { background: var(--color-bg); border-bottom: 0.5px solid var(--color-line); padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .admin-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 400; }
+    .admin-logo em { font-style: italic; color: var(--color-accent); }
+    .admin-topbar-right { display: flex; align-items: center; gap: 16px; }
+    .admin-user { font-size: 12px; color: var(--color-mist); }
+    .admin-logout { padding: 6px 14px; border: 0.5px solid var(--color-line); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-mist); cursor: pointer; border-radius: 1px; }
+    .admin-logout:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    .admin-body { display: flex; flex: 1; }
+
+    /* SIDEBAR */
+    .admin-sidebar { width: 200px; background: var(--color-bg); border-right: 0.5px solid var(--color-line); padding: 24px 0; flex-shrink: 0; }
+    .sidebar-section { padding: 0 16px; margin-bottom: 24px; }
+    .sidebar-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 8px; padding: 0 8px; }
+    .sidebar-link { display: flex; align-items: center; justify-content: space-between; padding: 8px; border-radius: 4px; font-size: 13px; color: var(--color-ink); cursor: pointer; transition: background 0.15s; margin-bottom: 2px; }
+    .sidebar-link:hover { background: var(--color-surface); }
+    .sidebar-link.active { background: var(--color-surface); color: var(--color-accent); font-weight: 500; }
+    .sidebar-count { font-size: 11px; color: var(--color-mist); background: var(--color-surface); padding: 2px 7px; border-radius: 10px; }
+    .sidebar-link.active .sidebar-count { background: rgba(30,77,107,0.1); color: var(--color-accent); }
+
+    /* MAIN CONTENT */
+    .admin-content { flex: 1; padding: 32px; overflow-y: auto; }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+    .panel-header { margin-bottom: 24px; }
+    .panel-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; color: var(--color-ink); margin-bottom: 4px; }
+    .panel-sub { font-size: 12px; color: var(--color-mist); }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: var(--color-bg); border: 0.5px solid var(--color-line); padding: 20px 24px; }
+    .stat-card-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; color: var(--color-accent); display: block; }
+    .stat-card-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist); margin-top: 4px; display: block; }
+
+    /* DATA TABLE */
+    .data-table-wrap { background: var(--color-bg); border: 0.5px solid var(--color-line); overflow: hidden; }
+    .data-table-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 0.5px solid var(--color-line); }
+    .data-table-title { font-size: 13px; font-weight: 500; }
+    .data-table-actions { display: flex; gap: 8px; }
+    .tbl-btn { padding: 6px 14px; border: 0.5px solid var(--color-line); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-mist); cursor: pointer; border-radius: 1px; }
+    .tbl-btn:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; padding: 10px 16px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mist); font-weight: 400; border-bottom: 0.5px solid var(--color-line); background: var(--color-surface); }
+    td { padding: 12px 16px; border-bottom: 0.5px solid var(--color-line); color: var(--color-ink); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--color-surface); }
+    .td-email { color: var(--color-accent); }
+    .td-muted { color: var(--color-mist); font-size: 12px; }
+    .badge-new { display: inline-block; padding: 2px 8px; background: rgba(157,191,184,0.2); color: #0a5a52; font-size: 10px; letter-spacing: 0.06em; border-radius: 10px; }
+    .empty-state { padding: 48px; text-align: center; color: var(--color-mist); font-size: 13px; }
+    .loading-state { padding: 32px; text-align: center; color: var(--color-mist); font-size: 13px; font-style: italic; }
+
+    /* OVERVIEW PANEL */
+    .overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .overview-card { background: var(--color-bg); border: 0.5px solid var(--color-line); padding: 24px; cursor: pointer; transition: border-color 0.2s; }
+    .overview-card:hover { border-color: var(--color-accent); }
+    .ov-num { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 400; color: var(--color-accent); display: block; }
+    .ov-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist); margin-top: 4px; display: block; }
+    .ov-hint { font-size: 11px; color: var(--color-secondary); margin-top: 8px; }
+    .recent-section { margin-bottom: 24px; }
+    .recent-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 12px; }
+    .recent-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 0.5px solid var(--color-line); }
+    .recent-item:last-child { border-bottom: none; }
+    .recent-email { font-size: 13px; color: var(--color-accent); }
+    .recent-date { font-size: 11px; color: var(--color-mist); }
+
+    /* SITE LINK */
+    .admin-site-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-mist); text-decoration: none; padding: 6px 14px; border: 0.5px solid var(--color-line); border-radius: 1px; }
+    .admin-site-link:hover { color: var(--color-accent); }
+  </style>
 </head>
 <body>
-  <nav id="site-nav">
-    <div class="nav-inner">
-      <a href="/index.html" class="nav-logo">
-        Chelsea <em>by the Sea</em>
-      </a>
-      <div class="nav-links">
-        <a href="/pages/body-shop.html">Body Shop</a>
-        <a href="/pages/shop.html">Shop</a>
-        <a href="/pages/blue.html">Blue</a>
-        <a href="/pages/turo.html">Turo</a>
-        <a href="/pages/content.html">Content</a>
-        <a href="/pages/coaching.html">Coaching</a>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Chelsea <em>by the Sea</em></div>
+    <p class="login-sub">Admin panel — authorized access only</p>
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <div class="login-group">
+        <label class="login-label">Email</label>
+        <input type="email" id="login-email" class="login-input" placeholder="admin@chelseabythesea.com" required autocomplete="email">
       </div>
-      <div class="nav-right">
-        <div class="nav-ig-pills">
-          <a href="https://instagram.com/chelseabythesea" target="_blank" class="ig-pill">
-            <span class="ig-dot dot-c"></span>@chelseabythesea
-          </a>
-          <a href="https://instagram.com/chelseas_bodyshop" target="_blank" class="ig-pill">
-            <span class="ig-dot dot-b"></span>@chelseas_bodyshop
-          </a>
-          <a href="https://instagram.com/blue_bythesea" target="_blank" class="ig-pill">
-            <span class="ig-dot dot-d"></span>@blue_bythesea
-          </a>
-        </div>
-        <a href="/pages/body-shop.html#book" class="nav-book-btn">Book</a>
-        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
+      <div class="login-group">
+        <label class="login-label">Password</label>
+        <input type="password" id="login-password" class="login-input" placeholder="••••••••" required autocomplete="current-password">
       </div>
+      <button type="submit" class="login-btn" id="login-btn">Sign In</button>
+      <p class="login-error" id="login-error">Incorrect email or password.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ADMIN SHELL -->
+<div class="admin-shell" id="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo">Chelsea <em>by the Sea</em> <span style="font-size:11px; color:var(--color-mist); font-family:'DM Sans',sans-serif; margin-left:8px;">Admin</span></div>
+    <div class="admin-topbar-right">
+      <a href="/" target="_blank" class="admin-site-link">View Site ↗</a>
+      <span class="admin-user" id="admin-user-email"></span>
+      <button class="admin-logout" onclick="handleLogout()">Sign Out</button>
     </div>
-    <div class="nav-mobile-menu" id="nav-mobile-menu">
-      <a href="/pages/body-shop.html">Body Shop</a>
-      <a href="/pages/shop.html">Shop</a>
-      <a href="/pages/blue.html">Blue</a>
-      <a href="/pages/turo.html">Turo</a>
-      <a href="/pages/content.html">Content</a>
-      <a href="/pages/coaching.html">Coaching</a>
-      <div class="mobile-ig">
-        <a href="https://instagram.com/chelseabythesea" target="_blank">@chelseabythesea</a>
-        <a href="https://instagram.com/chelseas_bodyshop" target="_blank">@chelseas_bodyshop</a>
-        <a href="https://instagram.com/blue_bythesea" target="_blank">@blue_bythesea</a>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Dashboard</div>
+        <div class="sidebar-link active" onclick="showPanel('overview', this)">Overview</div>
       </div>
-      <a href="/pages/body-shop.html#book" class="nav-book-btn mobile-book">Book a Treatment</a>
-    </div>
-  </nav>
-  <main id="site-main"></main>
-  <footer id="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand-col">
-        <div class="footer-logo">Chelsea <em>by the Sea</em></div>
-        <p class="footer-tagline">Laguna Beach's coastal wellness entrepreneur — body contouring, curated products, and the lifestyle you deserve.</p>
-        <div class="footer-social">
-          <a href="https://instagram.com/chelseabythesea" target="_blank" class="footer-social-btn" aria-label="Chelsea BTS Instagram">IG</a>
-          <a href="https://youtube.com" target="_blank" class="footer-social-btn" aria-label="YouTube">YT</a>
-          <a href="https://tiktok.com" target="_blank" class="footer-social-btn" aria-label="TikTok">TK</a>
-          <a href="https://pinterest.com" target="_blank" class="footer-social-btn" aria-label="Pinterest">PI</a>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Data</div>
+        <div class="sidebar-link" onclick="showPanel('newsletter', this)">
+          Newsletter <span class="sidebar-count" id="count-newsletter">—</span>
         </div>
-        <div class="footer-sponsor-zone">
-          <span class="sponsor-label">Partnership Placement</span>
-          <span class="sponsor-sub">Brand collaborations · work@chelseabythesea.com</span>
+        <div class="sidebar-link" onclick="showPanel('waitlist', this)">
+          Waitlist <span class="sidebar-count" id="count-waitlist">—</span>
+        </div>
+        <div class="sidebar-link" onclick="showPanel('bookings', this)">
+          Bookings <span class="sidebar-count" id="count-bookings">—</span>
         </div>
       </div>
-      <div class="footer-col">
-        <h4 class="footer-col-title">Services</h4>
-        <a href="/pages/body-shop.html">Body Contouring</a>
-        <a href="/pages/body-shop.html#book">Book a Session</a>
-        <a href="/pages/turo.html">Turo Fleet</a>
-        <a href="/pages/coaching.html">Virtual Coaching</a>
-      </div>
-      <div class="footer-col">
-        <h4 class="footer-col-title">Shop</h4>
-        <a href="/pages/shop.html">All Products</a>
-        <a href="/pages/shop.html#athleisure">Athleisure</a>
-        <a href="/pages/shop.html#nutrition">Nutrition</a>
-        <a href="/pages/shop.html#skincare">Skincare</a>
-        <a href="/pages/shop.html#blue">Blue's Shop</a>
-        <a href="/pages/shop.html#membership">Membership</a>
-      </div>
-      <div class="footer-col">
-        <h4 class="footer-col-title">Chelsea</h4>
-        <a href="/pages/content.html">Blog &amp; OOTD</a>
-        <a href="/pages/content.html#newsletter">Newsletter</a>
-        <a href="/pages/blue.html">Blue's World</a>
-        <a href="/pages/content.html#picks">Chelsea's Picks</a>
-        <a href="/pages/coaching.html">Work With Me</a>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Site</div>
+        <div class="sidebar-link" onclick="window.open('/', '_blank')">View Live Site</div>
+        <div class="sidebar-link" onclick="window.open('https://console.firebase.google.com', '_blank')">Firebase Console</div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Chelsea by the Sea &middot; Laguna Beach, CA</p>
-      <div class="footer-bottom-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Partnerships</a>
+    <div class="admin-content">
+
+      <!-- OVERVIEW -->
+      <div class="admin-panel active" id="panel-overview">
+        <div class="panel-header">
+          <h1 class="panel-title">Overview</h1>
+          <p class="panel-sub" id="overview-updated">Loading data...</p>
+        </div>
+        <div class="overview-grid">
+          <div class="overview-card" onclick="showPanel('newsletter', document.querySelector('[onclick*=newsletter]'))">
+            <span class="ov-num" id="ov-newsletter">—</span>
+            <span class="ov-label">Newsletter Signups</span>
+            <div class="ov-hint">Click to view all →</div>
+          </div>
+          <div class="overview-card" onclick="showPanel('waitlist', document.querySelector('[onclick*=waitlist]'))">
+            <span class="ov-num" id="ov-waitlist">—</span>
+            <span class="ov-label">Waitlist Entries</span>
+            <div class="ov-hint">Click to view all →</div>
+          </div>
+          <div class="overview-card" onclick="showPanel('bookings', document.querySelector('[onclick*=bookings]'))">
+            <span class="ov-num" id="ov-bookings">—</span>
+            <span class="ov-label">Booking Requests</span>
+            <div class="ov-hint">Click to view all →</div>
+          </div>
+        </div>
+        <div class="recent-section">
+          <div class="recent-title">Recent Newsletter Signups</div>
+          <div id="recent-newsletter"><div class="loading-state">Loading...</div></div>
+        </div>
       </div>
+
+      <!-- NEWSLETTER -->
+      <div class="admin-panel" id="panel-newsletter">
+        <div class="panel-header">
+          <h1 class="panel-title">Newsletter</h1>
+          <p class="panel-sub">All email signups from the site</p>
+        </div>
+        <div class="data-table-wrap">
+          <div class="data-table-header">
+            <div class="data-table-title" id="nl-table-title">Loading...</div>
+            <div class="data-table-actions">
+              <button class="tbl-btn" onclick="exportCSV('newsletter')">Export CSV</button>
+            </div>
+          </div>
+          <div id="newsletter-table"><div class="loading-state">Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- WAITLIST -->
+      <div class="admin-panel" id="panel-waitlist">
+        <div class="panel-header">
+          <h1 class="panel-title">Coaching Waitlist</h1>
+          <p class="panel-sub">All coaching waitlist signups</p>
+        </div>
+        <div class="data-table-wrap">
+          <div class="data-table-header">
+            <div class="data-table-title" id="wl-table-title">Loading...</div>
+            <div class="data-table-actions">
+              <button class="tbl-btn" onclick="exportCSV('waitlist')">Export CSV</button>
+            </div>
+          </div>
+          <div id="waitlist-table"><div class="loading-state">Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- BOOKINGS -->
+      <div class="admin-panel" id="panel-bookings">
+        <div class="panel-header">
+          <h1 class="panel-title">Booking Requests</h1>
+          <p class="panel-sub">All Body Shop booking inquiries</p>
+        </div>
+        <div class="data-table-wrap">
+          <div class="data-table-header">
+            <div class="data-table-title" id="bk-table-title">Loading...</div>
+            <div class="data-table-actions">
+              <button class="tbl-btn" onclick="exportCSV('bookings')">Export CSV</button>
+            </div>
+          </div>
+          <div id="bookings-table"><div class="loading-state">Loading...</div></div>
+        </div>
+      </div>
+
     </div>
-  </footer>
-  <script type="module" src="/js/firebase.js"></script>
+  </div>
+</div>
+
+<script type="module">
+  import { adminLogin, adminLogout, fetchCollection, onAuthChange } from '/js/firebase.js';
+
+  const cache = { newsletter: null, waitlist: null, bookings: null };
+
+  function formatDate(ts) {
+    if (!ts) return '—';
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  async function loadAll() {
+    cache.newsletter = await fetchCollection('newsletter');
+    cache.waitlist = await fetchCollection('waitlist');
+    cache.bookings = await fetchCollection('bookings');
+
+    document.getElementById('ov-newsletter').textContent = cache.newsletter.length;
+    document.getElementById('ov-waitlist').textContent = cache.waitlist.length;
+    document.getElementById('ov-bookings').textContent = cache.bookings.length;
+    document.getElementById('count-newsletter').textContent = cache.newsletter.length;
+    document.getElementById('count-waitlist').textContent = cache.waitlist.length;
+    document.getElementById('count-bookings').textContent = cache.bookings.length;
+    document.getElementById('overview-updated').textContent = `Last loaded: ${new Date().toLocaleTimeString()}`;
+
+    const recent = cache.newsletter.slice(0, 5);
+    document.getElementById('recent-newsletter').innerHTML = recent.length
+      ? recent.map(r => `<div class="recent-item"><span class="recent-email">${r.email}</span><span class="recent-date">${formatDate(r.createdAt)}</span></div>`).join('')
+      : '<div class="empty-state">No signups yet</div>';
+
+    renderNewsletterTable();
+    renderWaitlistTable();
+    renderBookingsTable();
+  }
+
+  function renderNewsletterTable() {
+    const data = cache.newsletter;
+    document.getElementById('nl-table-title').textContent = `${data.length} subscriber${data.length !== 1 ? 's' : ''}`;
+    document.getElementById('newsletter-table').innerHTML = data.length ? `
+      <table>
+        <thead><tr><th>Email</th><th>Source Page</th><th>Signed Up</th></tr></thead>
+        <tbody>${data.map(r => `
+          <tr>
+            <td class="td-email">${r.email}</td>
+            <td class="td-muted">${r.source || '—'}</td>
+            <td class="td-muted">${formatDate(r.createdAt)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>` : '<div class="empty-state">No newsletter signups yet</div>';
+  }
+
+  function renderWaitlistTable() {
+    const data = cache.waitlist;
+    document.getElementById('wl-table-title').textContent = `${data.length} entr${data.length !== 1 ? 'ies' : 'y'}`;
+    document.getElementById('waitlist-table').innerHTML = data.length ? `
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Interest</th><th>Goals</th><th>Date</th></tr></thead>
+        <tbody>${data.map(r => `
+          <tr>
+            <td>${r.name || '—'}</td>
+            <td class="td-email">${r.email}</td>
+            <td class="td-muted">${r.interest || '—'}</td>
+            <td class="td-muted" style="max-width:200px;">${r.goals || '—'}</td>
+            <td class="td-muted">${formatDate(r.createdAt)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>` : '<div class="empty-state">No waitlist entries yet</div>';
+  }
+
+  function renderBookingsTable() {
+    const data = cache.bookings;
+    document.getElementById('bk-table-title').textContent = `${data.length} request${data.length !== 1 ? 's' : ''}`;
+    document.getElementById('bookings-table').innerHTML = data.length ? `
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Service</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody>${data.map(r => `
+          <tr>
+            <td>${r.name || '—'}</td>
+            <td class="td-email">${r.email}</td>
+            <td class="td-muted">${r.phone || '—'}</td>
+            <td class="td-muted">${r.service || '—'}</td>
+            <td><span class="badge-new">${r.status || 'new'}</span></td>
+            <td class="td-muted">${formatDate(r.createdAt)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>` : '<div class="empty-state">No booking requests yet</div>';
+  }
+
+  window.exportCSV = function(collName) {
+    const data = cache[collName];
+    if (!data || !data.length) return alert('No data to export');
+    const keys = Object.keys(data[0]).filter(k => k !== 'id');
+    const rows = [keys.join(','), ...data.map(r =>
+      keys.map(k => {
+        const v = r[k];
+        if (v && v.toDate) return v.toDate().toISOString();
+        return JSON.stringify(v ?? '');
+      }).join(',')
+    )];
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `cbts-${collName}-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+  };
+
+  window.showPanel = function(name, el) {
+    document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    document.getElementById(`panel-${name}`).classList.add('active');
+    if (el) el.classList.add('active');
+  };
+
+  window.handleLogin = async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('login-btn');
+    const errEl = document.getElementById('login-error');
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    btn.textContent = 'Signing in...';
+    btn.disabled = true;
+    errEl.style.display = 'none';
+    const result = await adminLogin(email, password);
+    if (!result.success) {
+      errEl.style.display = 'block';
+      btn.textContent = 'Sign In';
+      btn.disabled = false;
+    }
+  };
+
+  window.handleLogout = async function() {
+    await adminLogout();
+  };
+
+  onAuthChange(user => {
+    if (user) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-shell').style.display = 'flex';
+      document.getElementById('admin-user-email').textContent = user.email;
+      loadAll();
+    } else {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('admin-shell').style.display = 'none';
+    }
+  });
+</script>
 </body>
 </html>

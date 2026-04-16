@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
 const firebaseConfig = {
@@ -14,13 +15,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 const analytics = getAnalytics(app);
 
-// ── Newsletter signup ──────────────────────────────────────
 export async function submitNewsletter(email) {
-  if (!email || !email.includes('@')) {
-    return { success: false, error: 'Invalid email' };
-  }
+  if (!email || !email.includes('@')) return { success: false, error: 'Invalid email' };
   try {
     await addDoc(collection(db, 'newsletter'), {
       email: email.toLowerCase().trim(),
@@ -29,12 +28,10 @@ export async function submitNewsletter(email) {
     });
     return { success: true };
   } catch (err) {
-    console.error('Newsletter error:', err);
     return { success: false, error: err.message };
   }
 }
 
-// ── Coaching waitlist ──────────────────────────────────────
 export async function submitWaitlist(data) {
   try {
     await addDoc(collection(db, 'waitlist'), {
@@ -47,12 +44,10 @@ export async function submitWaitlist(data) {
     });
     return { success: true };
   } catch (err) {
-    console.error('Waitlist error:', err);
     return { success: false, error: err.message };
   }
 }
 
-// ── Body shop booking request ──────────────────────────────
 export async function submitBooking(data) {
   try {
     await addDoc(collection(db, 'bookings'), {
@@ -67,9 +62,36 @@ export async function submitBooking(data) {
     });
     return { success: true };
   } catch (err) {
-    console.error('Booking error:', err);
     return { success: false, error: err.message };
   }
 }
 
-export { db, analytics };
+export async function adminLogin(email, password) {
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    return { success: true, user: cred.user };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+}
+
+export async function adminLogout() {
+  await signOut(auth);
+}
+
+export async function fetchCollection(name) {
+  try {
+    const q = query(collection(db, name), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch (err) {
+    console.error('Fetch error:', err);
+    return [];
+  }
+}
+
+export function onAuthChange(callback) {
+  return onAuthStateChanged(auth, callback);
+}
+
+export { db, auth, analytics };
