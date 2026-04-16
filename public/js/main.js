@@ -100,3 +100,14 @@ window.addEventListener('DOMContentLoaded', () => {
     if (btn) filterShop(btn);
   }
 });
+
+// Waitlist form
+function handleWaitlistSubmit(e) {
+  e.preventDefault();
+  const success = document.getElementById('waitlist-success');
+  if (success) {
+    success.style.display = 'block';
+    e.target.querySelector('button[type=submit]').style.display = 'none';
+    console.log('Waitlist signup captured');
+  }
+}

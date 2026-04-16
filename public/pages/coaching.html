@@ -59,7 +59,109 @@
       <a href="/pages/body-shop.html#book" class="nav-book-btn mobile-book">Book a Treatment</a>
     </div>
   </nav>
-  <main id="site-main"></main>
+  <main id="site-main">
+
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <div class="section-eyebrow">Virtual Coaching · Coming Soon</div>
+        <h1 class="page-hero-title">Live the life<br><em>you designed.</em></h1>
+        <p class="page-hero-sub">One-on-one virtual coaching covering fitness, nutrition, lifestyle design, and entrepreneurship. Built around you, delivered from Laguna Beach.</p>
+        <div class="hero-actions">
+          <a href="#waitlist" class="btn-primary">Join the Waitlist</a>
+          <a href="#offerings" class="btn-ghost">See Offerings</a>
+        </div>
+      </div>
+      <div class="page-hero-img">
+        <img src="/assets/images/coaching-hero.jpg" alt="Virtual Coaching" onerror="this.style.display='none';document.getElementById('coaching-hero-ph').style.display='flex'">
+        <div class="img-placeholder" id="coaching-hero-ph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <p>Chelsea coaching photo</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="offerings-section" id="offerings">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">What's Coming</div>
+          <h2 class="section-title">Coaching offerings</h2>
+        </div>
+        <span class="coming-soon-badge">Launching Soon</span>
+      </div>
+      <div class="offerings-grid">
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="offering-title">1-on-1 Coaching</h3>
+          <p class="offering-desc">Private weekly video sessions tailored entirely to your goals — fitness, lifestyle, or entrepreneurship.</p>
+          <div class="offering-detail">60 min · Weekly sessions · Custom pricing</div>
+        </div>
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="offering-title">Group Programs</h3>
+          <p class="offering-desc">Small group coaching with a community of like-minded women building their best lives.</p>
+          <div class="offering-detail">Group sessions · Monthly cohorts</div>
+        </div>
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3 class="offering-title">Fitness Programs</h3>
+          <p class="offering-desc">Downloadable and video-based training programs designed around the coastal lifestyle.</p>
+          <div class="offering-detail">Self-paced · Digital delivery</div>
+        </div>
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3 class="offering-title">Entrepreneur Mentoring</h3>
+          <p class="offering-desc">How Chelsea built multiple income streams in Laguna Beach — and how you can too.</p>
+          <div class="offering-detail">Strategy sessions · Flexible scheduling</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="waitlist-section" id="waitlist">
+      <div class="waitlist-inner">
+        <div class="waitlist-text">
+          <div class="section-eyebrow">Be First</div>
+          <h2 class="waitlist-title">Join the <em>coaching waitlist</em></h2>
+          <p class="waitlist-sub">Chelsea is currently accepting early interest for when coaching launches. Waitlist members get first access and founding member pricing.</p>
+        </div>
+        <form class="waitlist-form" id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">What are you most interested in?</label>
+            <select class="form-input form-select">
+              <option value="">Select one</option>
+              <option>1-on-1 Coaching</option>
+              <option>Group Program</option>
+              <option>Fitness Program</option>
+              <option>Entrepreneur Mentoring</option>
+              <option>All of the above</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tell Chelsea about your goals</label>
+            <textarea class="form-input form-textarea" placeholder="What are you working toward?"></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;">Join the Waitlist</button>
+          <p class="form-success" id="waitlist-success" style="display:none;">You're on the list! Chelsea will be in touch when coaching launches.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
   <footer id="site-footer">
     <div class="footer-inner">
       <div class="footer-brand-col">
