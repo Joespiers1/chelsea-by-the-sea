@@ -5,3 +5,7 @@ node_modules
 
 # Local Netlify folder
 .netlify
+
+# Firebase
+.firebase/
+firebase-debug.log

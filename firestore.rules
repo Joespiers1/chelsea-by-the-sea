@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Newsletter — anyone can write, nobody can read without auth
+    match /newsletter/{doc} {
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.email.size() > 5;
+      allow read, update, delete: if false;
+    }
+
+    // Waitlist — anyone can write, nobody can read without auth
+    match /waitlist/{doc} {
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.name is string;
+      allow read, update, delete: if false;
+    }
+
+    // Bookings — anyone can write, nobody can read without auth
+    match /bookings/{doc} {
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.name is string;
+      allow read, update, delete: if false;
+    }
+
+    // Admin config — locked down completely for now
+    match /config/{doc} {
+      allow read, write: if false;
+    }
+
+    // Catch-all — deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
