@@ -41,40 +41,6 @@ function handleNewsletterSubmit(e) {
   }
 }
 
-// Booking form
-function handleBookingSubmit(e) {
-  e.preventDefault();
-  const success = document.getElementById('booking-success');
-  if (success) {
-    success.style.display = 'block';
-    e.target.querySelector('button[type=submit]').style.display = 'none';
-    // TODO: wire to Netlify Forms or Firebase in later step
-  }
-}
-
-// Iframe fallback — if chelseasbodyshop.com blocks embedding, show fallback button
-const bsIframe = document.getElementById('bodyshop-iframe');
-const bsFallback = document.getElementById('iframe-fallback');
-if (bsIframe && bsFallback) {
-  // Show fallback after 8 seconds if iframe is empty (X-Frame-Options block)
-  setTimeout(() => {
-    try {
-      const doc = bsIframe.contentDocument || bsIframe.contentWindow.document;
-      if (!doc || doc.body.innerHTML === '') {
-        bsIframe.style.display = 'none';
-        bsFallback.style.display = 'flex';
-      }
-    } catch(e) {
-      // Cross-origin block = site loaded but we can't read it = that's fine
-      // Only show fallback if iframe height collapses to 0
-      if (bsIframe.offsetHeight === 0) {
-        bsIframe.style.display = 'none';
-        bsFallback.style.display = 'flex';
-      }
-    }
-  }, 12000);
-}
-
 // Shop category filter
 function filterShop(btn) {
   const filter = btn.getAttribute('data-filter');
