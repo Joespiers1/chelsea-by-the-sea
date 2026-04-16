@@ -26,3 +26,28 @@ if (siteNav) {
       : 'none';
   });
 }
+
+// Newsletter form
+function handleNewsletterSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('newsletter-email').value;
+  const form = document.getElementById('newsletter-form');
+  const success = document.getElementById('newsletter-success');
+  if (email && form && success) {
+    form.style.display = 'none';
+    success.style.display = 'block';
+    // TODO: wire to Resend/Firebase in a later step
+    console.log('Newsletter signup:', email);
+  }
+}
+
+// Booking form
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  const success = document.getElementById('booking-success');
+  if (success) {
+    success.style.display = 'block';
+    e.target.querySelector('button[type=submit]').style.display = 'none';
+    // TODO: wire to Netlify Forms or Firebase in later step
+  }
+}
