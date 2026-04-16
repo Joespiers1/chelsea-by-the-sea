@@ -1,3 +1,15 @@
 [build]
   publish = "public"
   functions = "functions"
+
+[[redirects]]
+  from = "/bodyshop-embed/*"
+  to = "https://chelseasbodyshop.com/:splat"
+  status = 200
+  force = true
+  headers = {X-Frame-Options = "ALLOWALL"}
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

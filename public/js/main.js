@@ -72,7 +72,7 @@ if (bsIframe && bsFallback) {
         bsFallback.style.display = 'flex';
       }
     }
-  }, 8000);
+  }, 12000);
 }
 
 // Shop category filter
