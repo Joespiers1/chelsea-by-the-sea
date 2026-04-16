@@ -500,6 +500,354 @@ body {
   margin-top: 8px;
 }
 
+/* BLUE */
+
+.btn-outline {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 0.5px solid var(--color-accent);
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 1px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-outline:hover {
+  background: rgba(30,77,107,0.06);
+}
+
+/* SECTION SHARED */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 36px;
+}
+.section-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--color-ink);
+}
+
+/* BLUE HERO PAGE */
+.blue-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 560px;
+  border-bottom: 0.5px solid var(--color-line);
+}
+.blue-hero-img {
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.blue-hero-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.blue-hero-content {
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.blue-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+.blue-hero-title {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+.blue-hero-title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.blue-hero-sub {
+  font-size: 13px;
+  color: var(--color-mist);
+  line-height: 1.9;
+  max-width: 380px;
+}
+.blue-ig-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 0.5px solid var(--color-line);
+  border-bottom: 0.5px solid var(--color-line);
+}
+.blue-ig-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0.5px solid var(--color-line);
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+.blue-ig-info {
+  flex: 1;
+}
+.blue-ig-info strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: 2px;
+}
+.blue-ig-info span {
+  font-size: 11px;
+  color: var(--color-mist);
+}
+.blue-hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* BLUE FEED */
+.blue-feed-section {
+  padding: 64px 40px;
+  border-bottom: 0.5px solid var(--color-line);
+}
+.blue-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+.feed-post {
+  aspect-ratio: 1;
+  background: var(--color-surface);
+  border: 1px dashed rgba(30,77,107,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.feed-post-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-mist);
+  opacity: 0.5;
+}
+
+/* LAGUNA GUIDE */
+.laguna-guide {
+  padding: 64px 40px;
+  border-bottom: 0.5px solid var(--color-line);
+  background: var(--color-surface);
+}
+.guide-intro {
+  font-size: 14px;
+  color: var(--color-mist);
+  line-height: 1.9;
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--color-line);
+}
+.guide-card {
+  background: var(--color-bg);
+  padding: 28px 24px;
+  display: flex;
+  gap: 16px;
+}
+.guide-card-icon {
+  width: 40px;
+  height: 40px;
+  border: 0.5px solid var(--color-line);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+.guide-card-body h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+.guide-card-body p {
+  font-size: 12px;
+  color: var(--color-mist);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.guide-tag {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  border: 0.5px solid var(--color-secondary);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+/* BLUE'S SHOP */
+.blues-shop {
+  padding: 64px 40px;
+  border-bottom: 0.5px solid var(--color-line);
+}
+.blues-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.blue-product-card {
+  border: 0.5px solid var(--color-line);
+}
+.blue-product-img {
+  height: 180px;
+  background: var(--color-surface);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blue-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.blue-product-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.blue-product-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-ink);
+}
+.blue-product-price {
+  font-size: 12px;
+  color: var(--color-mist);
+}
+
+/* BLUE HOME SECTION (homepage) */
+.blue-home {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 0.5px solid var(--color-line);
+  min-height: 480px;
+}
+.blue-home-img {
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.blue-home-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.blue-home-content {
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+.blue-home-title {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+.blue-home-title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.blue-home-sub {
+  font-size: 13px;
+  color: var(--color-mist);
+  line-height: 1.9;
+  max-width: 360px;
+}
+.blue-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.blue-mini-post {
+  aspect-ratio: 1;
+  background: var(--color-surface);
+  border: 1px dashed rgba(30,77,107,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* RESPONSIVE — BLUE */
+@media (max-width: 900px) {
+  .blue-hero { grid-template-columns: 1fr; }
+  .blue-hero-img { min-height: 320px; }
+  .blue-hero-content { padding: 36px 24px; }
+  .blue-hero-title { font-size: 38px; }
+  .blue-feed-grid { grid-template-columns: repeat(3, 1fr); }
+  .guide-grid { grid-template-columns: 1fr; }
+  .blues-products-grid { grid-template-columns: repeat(2, 1fr); }
+  .blue-home { grid-template-columns: 1fr; }
+  .blue-home-img { min-height: 280px; }
+  .blue-home-content { padding: 36px 24px; }
+  .blue-home-title { font-size: 34px; }
+  .blue-feed-section { padding: 40px 24px; }
+  .laguna-guide { padding: 40px 24px; }
+  .blues-shop { padding: 40px 24px; }
+}
+@media (max-width: 600px) {
+  .blues-products-grid { grid-template-columns: 1fr; }
+  .blue-feed-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* RESPONSIVE — HOMEPAGE */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
