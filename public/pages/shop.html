@@ -59,7 +59,235 @@
       <a href="/pages/body-shop.html#book" class="nav-book-btn mobile-book">Book a Treatment</a>
     </div>
   </nav>
-  <main id="site-main"></main>
+  <main id="site-main">
+
+    <section class="page-hero" style="min-height: 320px;">
+      <div class="page-hero-content">
+        <div class="section-eyebrow">Chelsea by the Sea</div>
+        <h1 class="page-hero-title" style="font-size: 44px;">The BTS<br><em>Collection</em></h1>
+        <p class="page-hero-sub">Athleisure, nutrition, skincare, candles, coffee, pet — all curated and branded by Chelsea.</p>
+      </div>
+      <div class="page-hero-img">
+        <img src="/assets/images/shop-hero.jpg" alt="BTS Shop" onerror="this.style.display='none';document.getElementById('shop-hero-ph').style.display='flex'">
+        <div class="img-placeholder" id="shop-hero-ph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <p>Shop hero photo</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="shop-filter-bar">
+      <button class="shop-filter-btn active" data-filter="all" onclick="filterShop(this)">All</button>
+      <button class="shop-filter-btn" data-filter="athleisure" onclick="filterShop(this)">Athleisure</button>
+      <button class="shop-filter-btn" data-filter="nutrition" onclick="filterShop(this)">Nutrition</button>
+      <button class="shop-filter-btn" data-filter="skincare" onclick="filterShop(this)">Skincare</button>
+      <button class="shop-filter-btn" data-filter="candles" onclick="filterShop(this)">Candles &amp; Home</button>
+      <button class="shop-filter-btn" data-filter="coffee" onclick="filterShop(this)">Coffee</button>
+      <button class="shop-filter-btn" data-filter="swimwear" onclick="filterShop(this)">Swimwear</button>
+      <button class="shop-filter-btn" data-filter="blue" onclick="filterShop(this)">Blue's Shop</button>
+      <button class="shop-filter-btn" data-filter="membership" onclick="filterShop(this)">Membership</button>
+    </div>
+
+    <section class="shop-section" id="shop-grid-section">
+      <div class="shop-products-grid" id="shop-grid">
+
+        <div class="shop-product-card" data-category="athleisure" id="athleisure">
+          <div class="shop-product-img">
+            <img src="/assets/images/product-coastal-set.jpg" alt="BTS Coastal Set" onerror="this.style.display='none'">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Athleisure</div>
+            <div class="shop-product-name">BTS Coastal Set</div>
+            <div class="shop-product-price">from $68</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="athleisure">
+          <div class="shop-product-img">
+            <img src="/assets/images/product-bts-hoodie.jpg" alt="BTS Hoodie" onerror="this.style.display='none'">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Athleisure</div>
+            <div class="shop-product-name">BTS Coastal Hoodie</div>
+            <div class="shop-product-price">from $72</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="nutrition" id="nutrition">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Nutrition</div>
+            <div class="shop-product-name">BTS Collagen+</div>
+            <div class="shop-product-price">from $54</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="nutrition">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Nutrition</div>
+            <div class="shop-product-name">BTS Protein</div>
+            <div class="shop-product-price">from $58</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="skincare" id="skincare">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Skincare</div>
+            <div class="shop-product-name">Sea Glow Serum</div>
+            <div class="shop-product-price">from $42</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="skincare">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Skincare</div>
+            <div class="shop-product-name">BTS Body Butter</div>
+            <div class="shop-product-price">from $36</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="candles" id="candles">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Candles &amp; Home</div>
+            <div class="shop-product-name">Driftwood &amp; Sea</div>
+            <div class="shop-product-price">from $36</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="coffee" id="coffee">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Coffee</div>
+            <div class="shop-product-name">BTS Morning Blend</div>
+            <div class="shop-product-price">from $28</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="swimwear" id="swimwear">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Swimwear</div>
+            <div class="shop-product-name">BTS One-Piece</div>
+            <div class="shop-product-price">from $88</div>
+            <a href="#" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="blue" id="blue">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Blue's Shop</div>
+            <div class="shop-product-name">Blue's Coastal Kit</div>
+            <div class="shop-product-price">from $38</div>
+            <a href="/pages/blue.html#blues-shop" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="blue">
+          <div class="shop-product-img">
+            <div class="card-img-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Product photo</p></div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Blue's Shop</div>
+            <div class="shop-product-name">Joint &amp; Coat Chews</div>
+            <div class="shop-product-price">from $42</div>
+            <a href="/pages/blue.html#blues-shop" class="card-link">Shop →</a>
+          </div>
+        </div>
+
+        <div class="shop-product-card" data-category="membership" id="membership">
+          <div class="shop-product-img" style="background: var(--color-accent);">
+            <div class="card-img-placeholder" style="color: rgba(255,255,255,0.6);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+              <p>Membership graphic</p>
+            </div>
+          </div>
+          <div class="shop-product-body">
+            <div class="card-tag">Membership</div>
+            <div class="shop-product-name">C-BTS Monthly Box</div>
+            <div class="shop-product-price">$49 / month</div>
+            <a href="#" class="card-link">Subscribe →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="care-packs-section">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">Curated Bundles</div>
+          <h2 class="section-title">Care Packs</h2>
+        </div>
+      </div>
+      <div class="care-packs-grid">
+        <div class="care-pack-card">
+          <div class="care-pack-img">
+            <div class="card-img-placeholder"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Bundle photo</p></div>
+          </div>
+          <div class="care-pack-body">
+            <h3 class="care-pack-name">Body &amp; Glow Pack</h3>
+            <p class="care-pack-desc">Skincare + nutrition + candle. Chelsea's signature self-care bundle.</p>
+            <div class="care-pack-price">$89</div>
+            <a href="#" class="btn-primary" style="margin-top:12px; display:block; text-align:center;">Add to Cart</a>
+          </div>
+        </div>
+        <div class="care-pack-card">
+          <div class="care-pack-img">
+            <div class="card-img-placeholder"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Bundle photo</p></div>
+          </div>
+          <div class="care-pack-body">
+            <h3 class="care-pack-name">Coastal Wellness Pack</h3>
+            <p class="care-pack-desc">Collagen + greens + electrolytes + coffee. The full BTS wellness stack.</p>
+            <div class="care-pack-price">$112</div>
+            <a href="#" class="btn-primary" style="margin-top:12px; display:block; text-align:center;">Add to Cart</a>
+          </div>
+        </div>
+        <div class="care-pack-card">
+          <div class="care-pack-img">
+            <div class="card-img-placeholder"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Bundle photo</p></div>
+          </div>
+          <div class="care-pack-body">
+            <h3 class="care-pack-name">Blue's Gift Pack</h3>
+            <p class="care-pack-desc">Bandana + supplement chews + treats. The perfect gift for any dog parent.</p>
+            <div class="care-pack-price">$64</div>
+            <a href="#" class="btn-primary" style="margin-top:12px; display:block; text-align:center;">Add to Cart</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
   <footer id="site-footer">
     <div class="footer-inner">
       <div class="footer-brand-col">

@@ -38,7 +38,7 @@
             <span class="ig-dot dot-d"></span>@blue_bythesea
           </a>
         </div>
-        <a href="/pages/body-shop.html#book" class="nav-book-btn">Book</a>
+        <a href="https://chelseasbodyshop.com" target="_blank" class="nav-book-btn">Book</a>
         <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
@@ -67,7 +67,7 @@
         <h1 class="page-hero-title">Precision contouring,<br><em>elevated results.</em></h1>
         <p class="page-hero-sub">Non-invasive body contouring treatments that sculpt, tone, and transform. Chelsea's signature approach combines the latest techniques with a luxury Laguna Beach experience.</p>
         <div class="hero-actions">
-          <a href="#book" class="btn-primary">Book a Treatment</a>
+          <a href="https://chelseasbodyshop.com" target="_blank" class="btn-primary">Book a Treatment</a>
           <a href="#services" class="btn-ghost">View Services</a>
         </div>
       </div>
@@ -134,65 +134,52 @@
     </section>
 
     <section class="booking-section" id="book">
-      <div class="section-header">
+      <div class="section-header" style="padding: 64px 40px 0;">
         <div>
           <div class="section-eyebrow">Ready to Start</div>
           <h2 class="section-title">Book a treatment</h2>
         </div>
+        <a href="https://chelseasbodyshop.com" target="_blank" class="btn-outline">
+          Open full site →
+        </a>
       </div>
-      <div class="booking-inner">
-        <div class="booking-info">
-          <p class="booking-desc">All sessions are by appointment. Chelsea personally performs every treatment at her Laguna Beach studio.</p>
-          <div class="booking-details">
-            <div class="booking-detail-row">
-              <span class="booking-detail-label">Location</span>
-              <span class="booking-detail-val">Laguna Beach, CA</span>
-            </div>
-            <div class="booking-detail-row">
-              <span class="booking-detail-label">Hours</span>
-              <span class="booking-detail-val">Mon–Sat, 9am–6pm</span>
-            </div>
-            <div class="booking-detail-row">
-              <span class="booking-detail-label">Contact</span>
-              <span class="booking-detail-val">Via Instagram or booking form</span>
-            </div>
-          </div>
-          <div class="booking-ig">
-            <a href="https://instagram.com/chelseas_bodyshop" target="_blank" class="ig-pill">
-              <span class="ig-dot dot-b"></span>DM @chelseas_bodyshop to book
-            </a>
-          </div>
+      <div class="booking-meta">
+        <div class="booking-detail-row">
+          <span class="booking-detail-label">Location</span>
+          <span class="booking-detail-val">Laguna Beach, CA</span>
         </div>
-        <form class="booking-form" id="booking-form" onsubmit="handleBookingSubmit(event)">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" class="form-input" placeholder="Your name" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="your@email.com" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input type="tel" class="form-input" placeholder="(949) 000-0000">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Service</label>
-            <select class="form-input form-select">
-              <option value="">Select a service</option>
-              <option>Body Contouring</option>
-              <option>Skin Tightening</option>
-              <option>Cellulite Reduction</option>
-              <option>Custom Package</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Message</label>
-            <textarea class="form-input form-textarea" placeholder="Any questions or notes..."></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%;">Request Appointment</button>
-          <p class="form-success" id="booking-success" style="display:none;">Request received! Chelsea will be in touch within 24 hours.</p>
-        </form>
+        <div class="booking-detail-row">
+          <span class="booking-detail-label">Hours</span>
+          <span class="booking-detail-val">Mon–Sat, 9am–6pm</span>
+        </div>
+        <div class="booking-detail-row">
+          <span class="booking-detail-label">Instagram</span>
+          <a href="https://instagram.com/chelseas_bodyshop" target="_blank" class="booking-detail-val" style="color: var(--color-accent);">@chelseas_bodyshop</a>
+        </div>
+        <div class="booking-detail-row">
+          <span class="booking-detail-label">Full Site</span>
+          <a href="https://chelseasbodyshop.com" target="_blank" class="booking-detail-val" style="color: var(--color-accent);">chelseasbodyshop.com</a>
+        </div>
+      </div>
+      <div class="booking-embed-wrapper">
+        <div class="booking-embed-label">
+          <span>Booking via chelseasbodyshop.com</span>
+          <a href="https://chelseasbodyshop.com" target="_blank" class="booking-embed-newwin">Open in new window ↗</a>
+        </div>
+        <iframe
+          id="bodyshop-iframe"
+          src="https://chelseasbodyshop.com"
+          class="booking-iframe"
+          title="Chelsea's Body Shop — Book a Treatment"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+        <div class="iframe-fallback" id="iframe-fallback" style="display:none;">
+          <p>Having trouble loading the booking page?</p>
+          <a href="https://chelseasbodyshop.com" target="_blank" class="btn-primary">
+            Open chelseasbodyshop.com →
+          </a>
+        </div>
       </div>
     </section>
 

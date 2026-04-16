@@ -51,3 +51,52 @@ function handleBookingSubmit(e) {
     // TODO: wire to Netlify Forms or Firebase in later step
   }
 }
+
+// Iframe fallback — if chelseasbodyshop.com blocks embedding, show fallback button
+const bsIframe = document.getElementById('bodyshop-iframe');
+const bsFallback = document.getElementById('iframe-fallback');
+if (bsIframe && bsFallback) {
+  // Show fallback after 8 seconds if iframe is empty (X-Frame-Options block)
+  setTimeout(() => {
+    try {
+      const doc = bsIframe.contentDocument || bsIframe.contentWindow.document;
+      if (!doc || doc.body.innerHTML === '') {
+        bsIframe.style.display = 'none';
+        bsFallback.style.display = 'flex';
+      }
+    } catch(e) {
+      // Cross-origin block = site loaded but we can't read it = that's fine
+      // Only show fallback if iframe height collapses to 0
+      if (bsIframe.offsetHeight === 0) {
+        bsIframe.style.display = 'none';
+        bsFallback.style.display = 'flex';
+      }
+    }
+  }, 8000);
+}
+
+// Shop category filter
+function filterShop(btn) {
+  const filter = btn.getAttribute('data-filter');
+  document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.shop-product-card').forEach(card => {
+    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  // Scroll to grid
+  const grid = document.getElementById('shop-grid-section');
+  if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Deep-link filter from URL hash — e.g. /shop.html#blue auto-filters to Blue
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#','');
+  if (hash) {
+    const btn = document.querySelector(`.shop-filter-btn[data-filter="${hash}"]`);
+    if (btn) filterShop(btn);
+  }
+});
