@@ -39,6 +39,10 @@
             <span class="ig-dot dot-d"></span>@blue_bythesea
           </a>
         </div>
+        <div class="cart-icon-wrap" id="cart-icon-wrap" onclick="openCart()" style="cursor:pointer;position:relative;display:flex;align-items:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--color-ink);"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span id="cart-count-badge" style="display:none;position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:var(--color-accent);color:#fff;font-size:10px;font-weight:500;align-items:center;justify-content:center;">0</span>
+        </div>
         <a href="/pages/body-shop.html#book" class="nav-book-btn">Book</a>
         <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
           <span></span><span></span><span></span>
@@ -101,7 +105,7 @@
             <div class="card-tag">Athleisure</div>
             <div class="shop-product-name">BTS Coastal Set</div>
             <div class="shop-product-price">from $68</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-coastal-set" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -114,7 +118,7 @@
             <div class="card-tag">Athleisure</div>
             <div class="shop-product-name">BTS Coastal Hoodie</div>
             <div class="shop-product-price">from $72</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-coastal-hoodie" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -126,7 +130,7 @@
             <div class="card-tag">Nutrition</div>
             <div class="shop-product-name">BTS Collagen+</div>
             <div class="shop-product-price">from $54</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-collagen-plus" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -138,7 +142,7 @@
             <div class="card-tag">Nutrition</div>
             <div class="shop-product-name">BTS Protein</div>
             <div class="shop-product-price">from $58</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-protein" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -150,7 +154,7 @@
             <div class="card-tag">Skincare</div>
             <div class="shop-product-name">Sea Glow Serum</div>
             <div class="shop-product-price">from $42</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="sea-glow-serum" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -162,7 +166,7 @@
             <div class="card-tag">Skincare</div>
             <div class="shop-product-name">BTS Body Butter</div>
             <div class="shop-product-price">from $36</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-body-butter" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -174,7 +178,7 @@
             <div class="card-tag">Candles &amp; Home</div>
             <div class="shop-product-name">Driftwood &amp; Sea</div>
             <div class="shop-product-price">from $36</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="driftwood-sea-candle" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -186,7 +190,7 @@
             <div class="card-tag">Coffee</div>
             <div class="shop-product-name">BTS Morning Blend</div>
             <div class="shop-product-price">from $28</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-morning-blend" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -198,7 +202,7 @@
             <div class="card-tag">Swimwear</div>
             <div class="shop-product-name">BTS One-Piece</div>
             <div class="shop-product-price">from $88</div>
-            <a href="#" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="bts-one-piece" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -210,7 +214,7 @@
             <div class="card-tag">Blue's Shop</div>
             <div class="shop-product-name">Blue's Coastal Kit</div>
             <div class="shop-product-price">from $38</div>
-            <a href="/pages/blue.html#blues-shop" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="blues-coastal-kit" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -222,7 +226,7 @@
             <div class="card-tag">Blue's Shop</div>
             <div class="shop-product-name">Joint &amp; Coat Chews</div>
             <div class="shop-product-price">from $42</div>
-            <a href="/pages/blue.html#blues-shop" class="card-link">Shop →</a>
+            <button class="add-to-cart-btn" data-product-id="blues-joint-coat-chews" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -237,7 +241,7 @@
             <div class="card-tag">Membership</div>
             <div class="shop-product-name">C-BTS Monthly Box</div>
             <div class="shop-product-price">$49 / month</div>
-            <a href="#" class="card-link">Subscribe →</a>
+            <button class="add-to-cart-btn" data-product-id="cbts-monthly-box" onclick="handleAddToCart(this)">Subscribe</button>
           </div>
         </div>
 
@@ -260,7 +264,7 @@
             <h3 class="care-pack-name">Body &amp; Glow Pack</h3>
             <p class="care-pack-desc">Skincare + nutrition + candle. Chelsea's signature self-care bundle.</p>
             <div class="care-pack-price">$89</div>
-            <a href="#" class="btn-primary" style="margin-top:12px; display:block; text-align:center;">Add to Cart</a>
+            <button class="add-to-cart-btn" data-product-id="body-glow-pack" onclick="handleAddToCart(this)" style="margin-top:12px;">Add to Cart</button>
           </div>
         </div>
         <div class="care-pack-card">
@@ -271,7 +275,7 @@
             <h3 class="care-pack-name">Coastal Wellness Pack</h3>
             <p class="care-pack-desc">Collagen + greens + electrolytes + coffee. The full BTS wellness stack.</p>
             <div class="care-pack-price">$112</div>
-            <a href="#" class="btn-primary" style="margin-top:12px; display:block; text-align:center;">Add to Cart</a>
+            <button class="add-to-cart-btn" data-product-id="coastal-wellness-pack" onclick="handleAddToCart(this)" style="margin-top:12px;">Add to Cart</button>
           </div>
         </div>
         <div class="care-pack-card">
@@ -282,7 +286,7 @@
             <h3 class="care-pack-name">Blue's Gift Pack</h3>
             <p class="care-pack-desc">Bandana + supplement chews + treats. The perfect gift for any dog parent.</p>
             <div class="care-pack-price">$64</div>
-            <a href="#" class="btn-primary" style="margin-top:12px; display:block; text-align:center;">Add to Cart</a>
+            <button class="add-to-cart-btn" data-product-id="blues-gift-pack" onclick="handleAddToCart(this)" style="margin-top:12px;">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -339,6 +343,120 @@
       </div>
     </div>
   </footer>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-overlay" onclick="closeCart()"></div>
+    <div class="cart-drawer-panel">
+      <div class="cart-drawer-header">
+        <h3 class="cart-drawer-title">Your Cart</h3>
+        <button class="cart-drawer-close" onclick="closeCart()">&#10005;</button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <div class="cart-empty">Your cart is empty</div>
+      </div>
+      <div class="cart-footer" id="cart-footer" style="display:none;">
+        <div class="cart-total">Total: <strong id="cart-total-price">$0</strong></div>
+        <button class="btn-primary cart-checkout-btn" onclick="handleCheckout()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/js/firebase.js"></script>
+
+  <script type="module">
+  import PRODUCTS, { getProduct } from '/js/products.js';
+  import { addToCart, getCart, getCartCount, removeFromCart, checkout, subscribe } from '/js/cart.js';
+
+  window.handleAddToCart = function(btn) {
+    const id = btn.getAttribute('data-product-id');
+    const product = getProduct(id);
+    if (!product) return;
+    addToCart(id);
+    btn.textContent = 'Added!';
+    btn.style.background = 'var(--color-secondary)';
+    setTimeout(() => {
+      btn.textContent = 'Add to Cart';
+      btn.style.background = '';
+    }, 1500);
+    renderCart();
+  };
+
+  window.openCart = function() {
+    document.getElementById('cart-drawer')?.classList.add('open');
+  };
+
+  window.closeCart = function() {
+    document.getElementById('cart-drawer')?.classList.remove('open');
+  };
+
+  function renderCart() {
+    const items = getCart();
+    const itemsEl = document.getElementById('cart-items');
+    const footerEl = document.getElementById('cart-footer');
+    const totalEl = document.getElementById('cart-total-price');
+    if (!itemsEl) return;
+
+    if (!items.length) {
+      itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+      if (footerEl) footerEl.style.display = 'none';
+      return;
+    }
+
+    let total = 0;
+    itemsEl.innerHTML = items.map(item => {
+      const p = getProduct(item.productId);
+      if (!p) return '';
+      total += p.price * item.quantity;
+      return `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${p.name}</div>
+            <div class="cart-item-price">$${p.price} × ${item.quantity}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeItem('${p.id}')">&#10005;</button>
+        </div>
+      `;
+    }).join('');
+
+    if (footerEl) footerEl.style.display = 'block';
+    if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+  }
+
+  window.removeItem = function(id) {
+    removeFromCart(id);
+    renderCart();
+  };
+
+  window.handleCheckout = async function() {
+    const items = getCart();
+    const lineItems = items.map(item => {
+      const p = getProduct(item.productId);
+      return { priceId: p.priceId, quantity: item.quantity };
+    });
+    await checkout(lineItems);
+  };
+  </script>
+
+  <script>
+  // Handle Stripe redirect return states
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === 'true') {
+      const banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#f7f4ef;border:0.5px solid #9dbfb8;padding:14px 28px;font-size:13px;color:#0a5a52;z-index:999;font-family:"DM Sans",sans-serif;font-style:italic;';
+      banner.textContent = 'Order confirmed! Thank you for your purchase.';
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 5000);
+      window.history.replaceState({}, '', '/pages/shop.html');
+    }
+    if (params.get('subscribed') === 'true') {
+      const banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#f7f4ef;border:0.5px solid #9dbfb8;padding:14px 28px;font-size:13px;color:#0a5a52;z-index:999;font-family:"DM Sans",sans-serif;font-style:italic;';
+      banner.textContent = "Welcome to the C-BTS community! Your membership is active.";
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 5000);
+      window.history.replaceState({}, '', '/pages/shop.html');
+    }
+  });
+  </script>
 </body>
 </html>

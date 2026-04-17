@@ -1,6 +1,10 @@
 [build]
   publish = "public"
   functions = "functions"
+  command = "npm install"
 
 [build.environment]
   SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyCR0IAighT6BtycEJa9VaRbZNYcZQuIYAw"
+
+[functions]
+  node_bundler = "esbuild"
