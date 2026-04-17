@@ -32,12 +32,27 @@ async function fetchAndApply() {
       const entry = images[zone];
       if (!entry || !entry.url) return;
       const target = el.dataset.imageTarget;
-      if (target === 'background' || (target !== 'src' && el.tagName !== 'IMG')) {
-        el.style.backgroundImage = "url('" + entry.url + "')";
-      } else {
+
+      if (el.tagName === 'IMG') {
         el.src = entry.url;
         el.style.display = 'block';
         const ph = el.parentElement?.querySelector('.img-placeholder, .card-img-placeholder');
+        if (ph) ph.style.display = 'none';
+      } else if (target === 'background') {
+        el.style.backgroundImage = "url('" + entry.url + "')";
+      } else {
+        // Container with data-image-zone — find child <img> or create one
+        let img = el.querySelector('img');
+        if (img) {
+          img.src = entry.url;
+          img.style.display = 'block';
+        } else {
+          img = document.createElement('img');
+          img.src = entry.url;
+          img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+          el.insertBefore(img, el.firstChild);
+        }
+        const ph = el.querySelector('.img-placeholder, .card-img-placeholder');
         if (ph) ph.style.display = 'none';
       }
     });
