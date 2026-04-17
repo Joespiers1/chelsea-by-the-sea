@@ -9,6 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/theme.css">
   <link rel="stylesheet" href="/css/curator.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCR0IAighT6BtycEJa9VaRbZNYcZQuIYAw",
+        authDomain: "chelsea-by-the-sea.firebaseapp.com",
+        projectId: "chelsea-by-the-sea",
+        storageBucket: "chelsea-by-the-sea.firebasestorage.app",
+        messagingSenderId: "976355830273",
+        appId: "1:976355830273:web:fd5a6ef43ca9c6a124ee00"
+      });
+    }
+  </script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--color-surface); color: var(--color-ink); font-size: 14px; min-height: 100vh; }
@@ -127,6 +142,27 @@
     .settings-save-btn { padding: 10px 24px; background: var(--color-accent); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 1px; }
     .settings-save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
     .settings-status { text-align: right; font-size: 12px; margin-top: 8px; min-height: 20px; font-style: italic; }
+
+    /* IMAGE MANAGER */
+    .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+    .image-grid-loading { padding: 2rem; text-align: center; color: var(--color-mist); }
+    .image-zone-card { background: var(--color-bg); border: 0.5px solid var(--color-line); padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .image-zone-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+    .image-zone-label { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--color-accent); }
+    .image-zone-page { font-size: 0.75rem; color: var(--color-mist); margin-top: 2px; }
+    .image-zone-key { font-size: 0.7rem; background: rgba(30,77,107,0.08); padding: 2px 6px; border-radius: 4px; color: var(--color-accent); font-family: monospace; }
+    .image-zone-preview { aspect-ratio: 16/10; background: var(--color-surface); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .image-zone-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .image-zone-empty { color: var(--color-mist); font-size: 0.85rem; }
+    .image-zone-meta { font-size: 0.75rem; color: var(--color-mist); font-family: monospace; word-break: break-all; min-height: 1em; }
+    .image-zone-progress { background: var(--color-surface); overflow: hidden; position: relative; height: 20px; }
+    .image-zone-progress-bar { background: var(--color-accent); height: 100%; width: 0%; transition: width 0.2s; }
+    .image-zone-progress-text { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff; mix-blend-mode: difference; }
+    .image-zone-stats { font-size: 0.75rem; color: var(--color-mist); }
+    .image-zone-actions { display: flex; gap: 0.5rem; }
+    .image-zone-actions .btn { flex: 1; text-align: center; cursor: pointer; padding: 0.5rem 0.75rem; border-radius: 1px; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .image-zone-actions .btn-primary { background: var(--color-accent); color: #fff; border: none; }
+    .image-zone-actions .btn-danger { background: #c0392b; color: #fff; border: none; }
   </style>
 </head>
 <body>
@@ -183,6 +219,9 @@
         <div class="sidebar-label">Site</div>
         <div class="sidebar-link" onclick="showPanel('settings', this)">
           Theme Editor
+        </div>
+        <div class="sidebar-link" onclick="showPanel('images', this)">
+          Image Manager
         </div>
         <div class="sidebar-link" onclick="window.open('https://chelseabts.com', '_blank')">
           View Live Site
@@ -435,10 +474,20 @@
         <p class="settings-status" id="settings-status"></p>
       </div>
 
+      <!-- IMAGE MANAGER -->
+      <div class="admin-panel" id="panel-images">
+        <div class="panel-header">
+          <h1 class="panel-title">Image Manager</h1>
+          <p class="panel-sub">Upload photos for each zone — updates the live site instantly</p>
+        </div>
+        <div id="image-manager-grid"></div>
+      </div>
+
     </div>
   </div>
 </div>
 
+<script src="/js/admin-images.js" defer></script>
 <script type="module">
   import { adminLogin, adminLogout, fetchCollection, onAuthChange } from '/js/firebase.js';
 
@@ -712,6 +761,7 @@
       document.getElementById('admin-user-email').textContent = user.email;
       loadAll();
       loadSettingsIntoForm();
+      if (window.initImageManager) window.initImageManager('#image-manager-grid');
     } else {
       document.getElementById('login-screen').style.display = 'flex';
       document.getElementById('admin-shell').style.display = 'none';
