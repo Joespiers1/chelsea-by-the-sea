@@ -18,6 +18,21 @@ const IMAGE_ZONES = [
   { key: 'content-hero',         label: 'Content Hero',               page: 'Content' },
   { key: 'coaching-hero',        label: 'Coaching Hero',              page: 'Coaching' },
   { key: 'about-chelsea',        label: 'Chelsea Portrait',           page: 'Reusable' },
+  { key: 'product-bts-coastal-set',       label: 'Product: BTS Coastal Set',       page: 'Shop' },
+  { key: 'product-bts-coastal-hoodie',    label: 'Product: BTS Coastal Hoodie',    page: 'Shop' },
+  { key: 'product-bts-collagen-plus',     label: 'Product: BTS Collagen+',         page: 'Shop' },
+  { key: 'product-bts-protein',           label: 'Product: BTS Protein',           page: 'Shop' },
+  { key: 'product-sea-glow-serum',        label: 'Product: Sea Glow Serum',        page: 'Shop' },
+  { key: 'product-bts-body-butter',       label: 'Product: BTS Body Butter',       page: 'Shop' },
+  { key: 'product-driftwood-sea-candle',  label: 'Product: Driftwood & Sea',       page: 'Shop' },
+  { key: 'product-bts-morning-blend',     label: 'Product: BTS Morning Blend',     page: 'Shop' },
+  { key: 'product-bts-one-piece',         label: 'Product: BTS One-Piece',         page: 'Shop' },
+  { key: 'product-blues-coastal-kit',     label: "Product: Blue's Coastal Kit",    page: 'Shop' },
+  { key: 'product-blues-joint-coat-chews',label: 'Product: Joint & Coat Chews',    page: 'Shop' },
+  { key: 'product-cbts-monthly-box',      label: 'Product: C-BTS Monthly Box',     page: 'Shop' },
+  { key: 'product-body-glow-pack',        label: 'Product: Body & Glow Pack',      page: 'Shop' },
+  { key: 'product-coastal-wellness-pack', label: 'Product: Coastal Wellness Pack', page: 'Shop' },
+  { key: 'product-blues-gift-pack',       label: "Product: Blue's Gift Pack",      page: 'Shop' },
 ];
 
 const MAX_EDGE = 2000;

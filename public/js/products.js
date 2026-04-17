@@ -6,7 +6,7 @@ const PRODUCTS = [
     price: 68,
     priceId: 'price_1TN3PPKFMunmF2aHtOS1xt7r',
     category: 'athleisure',
-    image: '/assets/images/product-coastal-set.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-coastal-set.svg',
     mode: 'payment',
     supplier: 'printful'
   },
@@ -17,7 +17,7 @@ const PRODUCTS = [
     price: 72,
     priceId: 'PLACEHOLDER',
     category: 'athleisure',
-    image: '/assets/images/product-bts-hoodie.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-coastal-hoodie.svg',
     mode: 'payment',
     supplier: 'printful'
   },
@@ -28,7 +28,7 @@ const PRODUCTS = [
     price: 54,
     priceId: 'price_1TN3QQKFMunmF2aHgM9VNIvk',
     category: 'nutrition',
-    image: '/assets/images/product-collagen.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-collagen-plus.svg',
     mode: 'payment',
     supplier: 'supliful'
   },
@@ -39,7 +39,7 @@ const PRODUCTS = [
     price: 58,
     priceId: 'PLACEHOLDER',
     category: 'nutrition',
-    image: '/assets/images/product-protein.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-protein.svg',
     mode: 'payment',
     supplier: 'supliful'
   },
@@ -50,7 +50,7 @@ const PRODUCTS = [
     price: 42,
     priceId: 'PLACEHOLDER',
     category: 'skincare',
-    image: '/assets/images/product-serum.jpg',
+    image: '/assets/images/placeholders/placeholder-sea-glow-serum.svg',
     mode: 'payment',
     supplier: 'blanka'
   },
@@ -61,7 +61,7 @@ const PRODUCTS = [
     price: 36,
     priceId: 'PLACEHOLDER',
     category: 'skincare',
-    image: '/assets/images/product-body-butter.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-body-butter.svg',
     mode: 'payment',
     supplier: 'blanka'
   },
@@ -72,7 +72,7 @@ const PRODUCTS = [
     price: 36,
     priceId: 'PLACEHOLDER',
     category: 'candles',
-    image: '/assets/images/product-candle.jpg',
+    image: '/assets/images/placeholders/placeholder-driftwood-sea-candle.svg',
     mode: 'payment',
     supplier: 'faire'
   },
@@ -83,7 +83,7 @@ const PRODUCTS = [
     price: 28,
     priceId: 'PLACEHOLDER',
     category: 'coffee',
-    image: '/assets/images/product-coffee.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-morning-blend.svg',
     mode: 'payment',
     supplier: 'dripshipper'
   },
@@ -94,7 +94,7 @@ const PRODUCTS = [
     price: 88,
     priceId: 'PLACEHOLDER',
     category: 'swimwear',
-    image: '/assets/images/product-swimwear.jpg',
+    image: '/assets/images/placeholders/placeholder-bts-one-piece.svg',
     mode: 'payment',
     supplier: 'contrado'
   },
@@ -105,7 +105,7 @@ const PRODUCTS = [
     price: 38,
     priceId: 'PLACEHOLDER',
     category: 'blue',
-    image: '/assets/images/blue-product-1.jpg',
+    image: '/assets/images/placeholders/placeholder-blues-coastal-kit.svg',
     mode: 'payment',
     supplier: 'printify'
   },
@@ -116,7 +116,7 @@ const PRODUCTS = [
     price: 42,
     priceId: 'PLACEHOLDER',
     category: 'blue',
-    image: '/assets/images/blue-product-2.jpg',
+    image: '/assets/images/placeholders/placeholder-blues-joint-coat-chews.svg',
     mode: 'payment',
     supplier: 'supliful'
   },
@@ -127,7 +127,7 @@ const PRODUCTS = [
     price: 49,
     priceId: 'price_1TN3R2KFMunmF2aHWYi1EbIo',
     category: 'membership',
-    image: '/assets/images/product-membership.jpg',
+    image: '/assets/images/placeholders/placeholder-cbts-monthly-box.svg',
     mode: 'subscription',
     supplier: 'internal'
   },
@@ -138,7 +138,7 @@ const PRODUCTS = [
     price: 89,
     priceId: 'PLACEHOLDER',
     category: 'carepack',
-    image: '/assets/images/product-body-glow-pack.jpg',
+    image: '/assets/images/placeholders/placeholder-body-glow-pack.svg',
     mode: 'payment',
     supplier: 'internal'
   },
@@ -149,7 +149,7 @@ const PRODUCTS = [
     price: 112,
     priceId: 'PLACEHOLDER',
     category: 'carepack',
-    image: '/assets/images/product-wellness-pack.jpg',
+    image: '/assets/images/placeholders/placeholder-coastal-wellness-pack.svg',
     mode: 'payment',
     supplier: 'internal'
   },
@@ -160,7 +160,7 @@ const PRODUCTS = [
     price: 64,
     priceId: 'PLACEHOLDER',
     category: 'carepack',
-    image: '/assets/images/blue-product-gift-pack.jpg',
+    image: '/assets/images/placeholders/placeholder-blues-gift-pack.svg',
     mode: 'payment',
     supplier: 'printify'
   }
