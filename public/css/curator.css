@@ -1,0 +1,49 @@
+/* Curator.io feed overrides — matches C-BTS aesthetic */
+
+/* Hide Curator branding */
+.crt-logo.crt-tag { display: none !important; }
+
+/* Feed container */
+.crt-feed { background: transparent !important; }
+.crt-feed-window { background: transparent !important; }
+
+/* Post grid items */
+.crt-post {
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+.crt-post-c {
+  border-radius: 0 !important;
+}
+
+/* Remove default Curator borders/shadows */
+.crt-post-content {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Hover overlay */
+.crt-post:hover .crt-post-content {
+  opacity: 0.9;
+}
+
+/* Load more button — match site style */
+.crt-load-more {
+  background: transparent !important;
+  border: 0.5px solid var(--color-accent, #1e4d6b) !important;
+  color: var(--color-accent, #1e4d6b) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11px !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border-radius: 1px !important;
+  padding: 10px 24px !important;
+}
+.crt-load-more:hover {
+  background: rgba(30,77,107,0.06) !important;
+}
+
+/* Feed wrapper sizing */
+.curator-feed-wrapper {
+  width: 100%;
+}

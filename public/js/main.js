@@ -113,7 +113,17 @@ async function handleWaitlistSubmit(e) {
   }
 }
 
+/* ── IG FEED TABS ── */
+function switchFeed(name, btn) {
+  document.querySelectorAll('.ig-feed-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ig-feed-tab').forEach(b => b.classList.remove('active'));
+  const pane = document.getElementById('feed-' + name);
+  if (pane) pane.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
 /* ── EXPOSE TO HTML onsubmit HANDLERS ── */
 window.handleNewsletterSubmit = handleNewsletterSubmit;
 window.handleWaitlistSubmit = handleWaitlistSubmit;
 window.filterShop = filterShop;
+window.switchFeed = switchFeed;
