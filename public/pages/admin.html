@@ -97,6 +97,36 @@
     /* SITE LINK */
     .admin-site-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-mist); text-decoration: none; padding: 6px 14px; border: 0.5px solid var(--color-line); border-radius: 1px; }
     .admin-site-link:hover { color: var(--color-accent); }
+
+    /* SETTINGS */
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .settings-card { background: var(--color-bg); border: 0.5px solid var(--color-line); overflow: hidden; }
+    .settings-card-full { grid-column: 1 / -1; }
+    .settings-card-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist); padding: 12px 16px; border-bottom: 0.5px solid var(--color-line); background: var(--color-surface); }
+    .settings-card-body { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .settings-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .setting-label { font-size: 12px; color: var(--color-mist); min-width: 110px; }
+    .setting-controls { display: flex; align-items: center; gap: 8px; }
+    .color-swatch-wrap { width: 32px; height: 32px; border-radius: 4px; border: 0.5px solid var(--color-line); overflow: hidden; flex-shrink: 0; }
+    .color-picker { width: 44px; height: 44px; border: none; padding: 0; margin: -6px; cursor: pointer; background: none; }
+    .hex-field { width: 80px; padding: 6px 8px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 11px; font-family: monospace; background: var(--color-surface); color: var(--color-ink); }
+    .setting-select { width: 100%; padding: 8px 10px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 12px; background: var(--color-surface); color: var(--color-ink); font-family: 'DM Sans', sans-serif; }
+    .setting-input { width: 100%; padding: 8px 10px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 12px; background: var(--color-bg); color: var(--color-ink); font-family: 'DM Sans', sans-serif; }
+    .setting-textarea { width: 100%; padding: 8px 10px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 12px; background: var(--color-bg); color: var(--color-ink); font-family: 'DM Sans', sans-serif; resize: vertical; }
+    .setting-group { display: flex; flex-direction: column; gap: 6px; }
+    .font-preview { margin-top: 8px; padding: 16px; border: 0.5px solid var(--color-line); border-radius: 4px; font-family: 'Playfair Display', serif; font-size: 24px; color: var(--color-ink); background: var(--color-surface); }
+    .font-preview em { font-style: italic; color: var(--color-accent); }
+    .settings-themes { padding-top: 12px; border-top: 0.5px solid var(--color-line); margin-top: 4px; }
+    .settings-themes-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 8px; }
+    .themes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .theme-btn { padding: 7px 8px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 11px; font-family: 'DM Sans', sans-serif; background: var(--color-surface); color: var(--color-ink); cursor: pointer; transition: all 0.15s; text-align: center; }
+    .theme-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .settings-actions { display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 0.5px solid var(--color-line); }
+    .settings-preview-btn { padding: 10px 24px; border: 0.5px solid var(--color-accent); background: transparent; color: var(--color-accent); font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 1px; }
+    .settings-save-btn { padding: 10px 24px; background: var(--color-accent); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 1px; }
+    .settings-save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .settings-status { text-align: right; font-size: 12px; margin-top: 8px; min-height: 20px; font-style: italic; }
   </style>
 </head>
 <body>
@@ -151,8 +181,15 @@
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Site</div>
-        <div class="sidebar-link" onclick="window.open('/', '_blank')">View Live Site</div>
-        <div class="sidebar-link" onclick="window.open('https://console.firebase.google.com', '_blank')">Firebase Console</div>
+        <div class="sidebar-link" onclick="showPanel('settings', this)">
+          Theme Editor
+        </div>
+        <div class="sidebar-link" onclick="window.open('https://chelseabts.com', '_blank')">
+          View Live Site
+        </div>
+        <div class="sidebar-link" onclick="window.open('https://console.firebase.google.com', '_blank')">
+          Firebase Console
+        </div>
       </div>
     </div>
     <div class="admin-content">
@@ -235,6 +272,167 @@
           </div>
           <div id="bookings-table"><div class="loading-state">Loading...</div></div>
         </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-panel" id="panel-settings">
+        <div class="panel-header">
+          <h1 class="panel-title">Theme Editor</h1>
+          <p class="panel-sub">Changes save instantly and update the live site for all visitors</p>
+        </div>
+
+        <div class="settings-grid">
+
+          <!-- COLORS -->
+          <div class="settings-card">
+            <div class="settings-card-title">Colors</div>
+            <div class="settings-card-body">
+              <div class="setting-row">
+                <label class="setting-label">Background</label>
+                <div class="setting-controls">
+                  <div class="color-swatch-wrap"><input type="color" id="s-colorBg" value="#f7f4ef" class="color-picker"></div>
+                  <input type="text" id="s-colorBg-hex" value="#f7f4ef" class="hex-field">
+                </div>
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Ink / Text</label>
+                <div class="setting-controls">
+                  <div class="color-swatch-wrap"><input type="color" id="s-colorInk" value="#18181a" class="color-picker"></div>
+                  <input type="text" id="s-colorInk-hex" value="#18181a" class="hex-field">
+                </div>
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Accent (Ocean)</label>
+                <div class="setting-controls">
+                  <div class="color-swatch-wrap"><input type="color" id="s-colorAccent" value="#1e4d6b" class="color-picker"></div>
+                  <input type="text" id="s-colorAccent-hex" value="#1e4d6b" class="hex-field">
+                </div>
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Secondary</label>
+                <div class="setting-controls">
+                  <div class="color-swatch-wrap"><input type="color" id="s-colorSecondary" value="#9dbfb8" class="color-picker"></div>
+                  <input type="text" id="s-colorSecondary-hex" value="#9dbfb8" class="hex-field">
+                </div>
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Surface</label>
+                <div class="setting-controls">
+                  <div class="color-swatch-wrap"><input type="color" id="s-colorSurface" value="#ede8df" class="color-picker"></div>
+                  <input type="text" id="s-colorSurface-hex" value="#ede8df" class="hex-field">
+                </div>
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Button Color</label>
+                <div class="setting-controls">
+                  <div class="color-swatch-wrap"><input type="color" id="s-colorBtn" value="#1e4d6b" class="color-picker"></div>
+                  <input type="text" id="s-colorBtn-hex" value="#1e4d6b" class="hex-field">
+                </div>
+              </div>
+              <div class="settings-themes">
+                <div class="settings-themes-label">Quick Themes</div>
+                <div class="themes-grid">
+                  <button class="theme-btn" onclick="applyQuickTheme('coastal')">Coastal Blue</button>
+                  <button class="theme-btn" onclick="applyQuickTheme('sand')">Warm Sand</button>
+                  <button class="theme-btn" onclick="applyQuickTheme('blush')">Blush Rose</button>
+                  <button class="theme-btn" onclick="applyQuickTheme('midnight')">Midnight</button>
+                  <button class="theme-btn" onclick="applyQuickTheme('sage')">Sage & Cream</button>
+                  <button class="theme-btn" onclick="applyQuickTheme('coral')">Coral Reef</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FONTS -->
+          <div class="settings-card">
+            <div class="settings-card-title">Typography</div>
+            <div class="settings-card-body">
+              <div class="setting-row">
+                <label class="setting-label">Display Font</label>
+                <select id="s-fontDisplay" class="setting-select">
+                  <option value="'Playfair Display', serif">Playfair Display</option>
+                  <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+                  <option value="'Libre Baskerville', serif">Libre Baskerville</option>
+                  <option value="Georgia, serif">Georgia</option>
+                  <option value="'DM Sans', sans-serif">DM Sans (modern)</option>
+                </select>
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Body Font</label>
+                <select id="s-fontBody" class="setting-select">
+                  <option value="'DM Sans', sans-serif">DM Sans</option>
+                  <option value="'Jost', sans-serif">Jost</option>
+                  <option value="'Nunito Sans', sans-serif">Nunito Sans</option>
+                  <option value="'Lato', sans-serif">Lato</option>
+                </select>
+              </div>
+              <div class="font-preview" id="font-preview">
+                Life <em>by the sea.</em>
+              </div>
+            </div>
+          </div>
+
+          <!-- HERO TEXT -->
+          <div class="settings-card settings-card-full">
+            <div class="settings-card-title">Hero Section</div>
+            <div class="settings-card-body settings-two-col">
+              <div class="setting-group">
+                <label class="setting-label">Location Tag</label>
+                <input type="text" id="s-heroEyebrow" class="setting-input" value="Laguna Beach · Orange County">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Headline Line 1</label>
+                <input type="text" id="s-heroHeadline" class="setting-input" value="Wellness, style &">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Headline Italic (accent color)</label>
+                <input type="text" id="s-heroHeadlineEm" class="setting-input" value="the sea.">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Subheadline</label>
+                <textarea id="s-heroSub" class="setting-textarea" rows="2">Body contouring, coastal living, premium products — Chelsea's world, curated with intention.</textarea>
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">CTA Button Text</label>
+                <input type="text" id="s-heroCta" class="setting-input" value="Book a Treatment">
+              </div>
+            </div>
+          </div>
+
+          <!-- NAV + FOOTER TEXT -->
+          <div class="settings-card settings-card-full">
+            <div class="settings-card-title">Navigation & Footer</div>
+            <div class="settings-card-body settings-two-col">
+              <div class="setting-group">
+                <label class="setting-label">Logo Text</label>
+                <input type="text" id="s-navLogoText" class="setting-input" value="Chelsea">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Logo Italic Text</label>
+                <input type="text" id="s-navLogoEm" class="setting-input" value="by the Sea">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Footer Tagline</label>
+                <textarea id="s-footerTagline" class="setting-textarea" rows="2">Laguna Beach's coastal wellness entrepreneur — body contouring, curated products, and the lifestyle you deserve.</textarea>
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Newsletter Headline</label>
+                <input type="text" id="s-newsletterTitle" class="setting-input" value="Join the">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Newsletter Headline Italic</label>
+                <input type="text" id="s-newsletterTitleEm" class="setting-input" value="C-BTS community">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="settings-actions">
+          <button class="settings-preview-btn" onclick="previewSettings()">Preview on Live Site</button>
+          <button class="settings-save-btn" onclick="saveSettings()">Save & Publish</button>
+        </div>
+        <p class="settings-status" id="settings-status"></p>
       </div>
 
     </div>
@@ -353,6 +551,139 @@
     if (el) el.classList.add('active');
   };
 
+  const THEMES = {
+    coastal: { colorBg:'#f7f4ef', colorInk:'#18181a', colorAccent:'#1e4d6b', colorSecondary:'#9dbfb8', colorSurface:'#ede8df', colorBtn:'#1e4d6b' },
+    sand:    { colorBg:'#faf5ed', colorInk:'#2a1f0e', colorAccent:'#8b6914', colorSecondary:'#c9a86c', colorSurface:'#f0e8d8', colorBtn:'#8b6914' },
+    blush:   { colorBg:'#fdf5f5', colorInk:'#2a1218', colorAccent:'#9e3d5a', colorSecondary:'#d4a0b0', colorSurface:'#f5e4e8', colorBtn:'#9e3d5a' },
+    midnight:{ colorBg:'#12121a', colorInk:'#f0eee8', colorAccent:'#8ab4d4', colorSecondary:'#4a6a80', colorSurface:'#1e1e2a', colorBtn:'#8ab4d4' },
+    sage:    { colorBg:'#f5f7f2', colorInk:'#1a2018', colorAccent:'#4a7a50', colorSecondary:'#90b898', colorSurface:'#e8ede5', colorBtn:'#4a7a50' },
+    coral:   { colorBg:'#fdf8f5', colorInk:'#1a0e0a', colorAccent:'#c45a3a', colorSecondary:'#e4a088', colorSurface:'#f5e8e0', colorBtn:'#c45a3a' }
+  };
+
+  window.applyQuickTheme = function(name) {
+    const t = THEMES[name];
+    if (!t) return;
+    Object.entries(t).forEach(([key, val]) => {
+      const picker = document.getElementById('s-' + key);
+      const hex = document.getElementById('s-' + key + '-hex');
+      if (picker) picker.value = val;
+      if (hex) hex.value = val;
+    });
+    updateFontPreview();
+  };
+
+  document.querySelectorAll('.color-picker').forEach(picker => {
+    picker.addEventListener('input', () => {
+      const hexField = document.getElementById(picker.id + '-hex');
+      if (hexField) hexField.value = picker.value;
+      updateFontPreview();
+    });
+  });
+  document.querySelectorAll('.hex-field').forEach(hex => {
+    hex.addEventListener('input', () => {
+      if (hex.value.length === 7 && hex.value.startsWith('#')) {
+        const pickerId = hex.id.replace('-hex', '');
+        const picker = document.getElementById(pickerId);
+        if (picker) picker.value = hex.value;
+      }
+      updateFontPreview();
+    });
+  });
+
+  function updateFontPreview() {
+    const preview = document.getElementById('font-preview');
+    const displayFont = document.getElementById('s-fontDisplay')?.value;
+    const accent = document.getElementById('s-colorAccent')?.value;
+    if (preview) {
+      preview.style.fontFamily = displayFont || "'Playfair Display', serif";
+      const em = preview.querySelector('em');
+      if (em && accent) em.style.color = accent;
+    }
+  }
+
+  document.getElementById('s-fontDisplay')?.addEventListener('change', updateFontPreview);
+
+  function collectSettings() {
+    return {
+      colorBg: document.getElementById('s-colorBg')?.value || '#f7f4ef',
+      colorInk: document.getElementById('s-colorInk')?.value || '#18181a',
+      colorAccent: document.getElementById('s-colorAccent')?.value || '#1e4d6b',
+      colorSecondary: document.getElementById('s-colorSecondary')?.value || '#9dbfb8',
+      colorSurface: document.getElementById('s-colorSurface')?.value || '#ede8df',
+      colorBtn: document.getElementById('s-colorBtn')?.value || '#1e4d6b',
+      fontDisplay: document.getElementById('s-fontDisplay')?.value || "'Playfair Display', serif",
+      fontBody: document.getElementById('s-fontBody')?.value || "'DM Sans', sans-serif",
+      heroEyebrow: document.getElementById('s-heroEyebrow')?.value || '',
+      heroHeadline: document.getElementById('s-heroHeadline')?.value || '',
+      heroHeadlineEm: document.getElementById('s-heroHeadlineEm')?.value || '',
+      heroSub: document.getElementById('s-heroSub')?.value || '',
+      heroCta: document.getElementById('s-heroCta')?.value || '',
+      navLogoText: document.getElementById('s-navLogoText')?.value || '',
+      navLogoEm: document.getElementById('s-navLogoEm')?.value || '',
+      footerTagline: document.getElementById('s-footerTagline')?.value || '',
+      newsletterTitle: document.getElementById('s-newsletterTitle')?.value || '',
+      newsletterTitleEm: document.getElementById('s-newsletterTitleEm')?.value || ''
+    };
+  }
+
+  window.previewSettings = function() {
+    window.open('https://chelseabts.com', '_blank');
+  };
+
+  window.saveSettings = async function() {
+    const btn = document.querySelector('.settings-save-btn');
+    const status = document.getElementById('settings-status');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+    status.style.color = 'var(--color-mist)';
+    status.textContent = 'Saving changes...';
+    try {
+      const { saveSiteConfig } = await import('/js/firebase.js');
+      const config = collectSettings();
+      const result = await saveSiteConfig(config);
+      if (result.success) {
+        status.style.color = '#0a5a52';
+        status.textContent = 'Saved! Changes are now live on chelseabts.com';
+        btn.textContent = 'Save & Publish';
+        btn.disabled = false;
+      } else {
+        throw new Error(result.error);
+      }
+    } catch(err) {
+      status.style.color = '#c0392b';
+      status.textContent = 'Error saving: ' + err.message;
+      btn.textContent = 'Save & Publish';
+      btn.disabled = false;
+    }
+  };
+
+  async function loadSettingsIntoForm() {
+    try {
+      const { loadSiteConfig } = await import('/js/firebase.js');
+      const cfg = await loadSiteConfig();
+      if (!cfg) return;
+      const fields = [
+        'colorBg','colorInk','colorAccent','colorSecondary',
+        'colorSurface','colorBtn','heroEyebrow','heroHeadline',
+        'heroHeadlineEm','heroSub','heroCta','navLogoText',
+        'navLogoEm','footerTagline','newsletterTitle','newsletterTitleEm'
+      ];
+      fields.forEach(key => {
+        const el = document.getElementById('s-' + key);
+        const hex = document.getElementById('s-' + key + '-hex');
+        if (el && cfg[key]) el.value = cfg[key];
+        if (hex && cfg[key]) hex.value = cfg[key];
+      });
+      const fontDisplay = document.getElementById('s-fontDisplay');
+      const fontBody = document.getElementById('s-fontBody');
+      if (fontDisplay && cfg.fontDisplay) fontDisplay.value = cfg.fontDisplay;
+      if (fontBody && cfg.fontBody) fontBody.value = cfg.fontBody;
+      updateFontPreview();
+    } catch(e) {
+      console.log('No saved config yet');
+    }
+  }
+
   window.handleLogin = async function(e) {
     e.preventDefault();
     const btn = document.getElementById('login-btn');
@@ -380,6 +711,7 @@
       document.getElementById('admin-shell').style.display = 'flex';
       document.getElementById('admin-user-email').textContent = user.email;
       loadAll();
+      loadSettingsIntoForm();
     } else {
       document.getElementById('login-screen').style.display = 'flex';
       document.getElementById('admin-shell').style.display = 'none';

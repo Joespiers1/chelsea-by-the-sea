@@ -94,4 +94,36 @@ export function onAuthChange(callback) {
   return onAuthStateChanged(auth, callback);
 }
 
+export async function saveSiteConfig(config) {
+  try {
+    const { setDoc, doc } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"
+    );
+    await setDoc(doc(db, 'config', 'theme'), {
+      ...config,
+      updatedAt: (await import(
+        "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"
+      )).serverTimestamp()
+    });
+    return { success: true };
+  } catch (err) {
+    console.error('saveSiteConfig error:', err);
+    return { success: false, error: err.message };
+  }
+}
+
+export async function loadSiteConfig() {
+  try {
+    const { getDoc, doc } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"
+    );
+    const snap = await getDoc(doc(db, 'config', 'theme'));
+    if (snap.exists()) return snap.data();
+    return null;
+  } catch (err) {
+    console.error('loadSiteConfig error:', err);
+    return null;
+  }
+}
+
 export { db, auth, analytics };

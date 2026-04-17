@@ -16,14 +16,14 @@
   <link rel="stylesheet" href="/css/theme.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/curator.css">
-  <script defer src="/js/theme.js"></script>
+  <script type="module" src="/js/theme.js"></script>
   <script defer src="/js/main.js"></script>
 </head>
 <body>
   <nav id="site-nav">
     <div class="nav-inner">
       <a href="/index.html" class="nav-logo">
-        Chelsea <em>by the Sea</em>
+        <span id="nav-logo-text">Chelsea</span> <em id="nav-logo-em-text">by the Sea</em>
       </a>
       <div class="nav-links">
         <a href="/pages/body-shop.html">Body Shop</a>
@@ -70,14 +70,14 @@
 
     <section class="hero">
       <div class="hero-left">
-        <div class="hero-eyebrow">Laguna Beach · Orange County</div>
+        <div class="hero-eyebrow" id="hero-eyebrow-text">Laguna Beach · Orange County</div>
         <h1 class="hero-title">
-          Wellness, style &amp;<br>
-          <em>the sea.</em>
+          <span id="hero-h1a">Wellness, style &amp;</span><br>
+          <em id="hero-h1b">the sea.</em>
         </h1>
-        <p class="hero-sub">Body contouring, coastal living, premium products — Chelsea's world, curated with intention.</p>
+        <p class="hero-sub" id="hero-sub-text">Body contouring, coastal living, premium products — Chelsea's world, curated with intention.</p>
         <div class="hero-actions">
-          <a href="/pages/body-shop.html#book" class="btn-primary">Book a Treatment</a>
+          <a href="/pages/body-shop.html#book" class="btn-primary"><span id="hero-cta-text">Book a Treatment</span></a>
           <a href="/pages/shop.html" class="btn-ghost">Explore the Shop</a>
         </div>
 
@@ -249,8 +249,8 @@
     <section class="newsletter-section">
       <div class="newsletter-inner">
         <div class="newsletter-text">
-          <h2 class="newsletter-title">Join the <em>C-BTS community</em></h2>
-          <p class="newsletter-sub">Weekly drops — OOTD, wellness tips, exclusive offers, and early product access.</p>
+          <h2 class="newsletter-title"><span id="newsletter-title-text">Join the</span> <em id="newsletter-title-em-text">C-BTS community</em></h2>
+          <p class="newsletter-sub" id="newsletter-sub-text">Weekly drops — OOTD, wellness tips, exclusive offers, and early product access.</p>
         </div>
         <form class="newsletter-form" id="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
           <input
@@ -274,7 +274,7 @@
     <div class="footer-inner">
       <div class="footer-brand-col">
         <div class="footer-logo">Chelsea <em>by the Sea</em></div>
-        <p class="footer-tagline">Laguna Beach's coastal wellness entrepreneur — body contouring, curated products, and the lifestyle you deserve.</p>
+        <p class="footer-tagline" id="footer-tagline-text">Laguna Beach's coastal wellness entrepreneur — body contouring, curated products, and the lifestyle you deserve.</p>
         <div class="footer-social">
           <a href="https://instagram.com/chelseabythesea" target="_blank" class="footer-social-btn" aria-label="Chelsea BTS Instagram">IG</a>
           <a href="https://youtube.com" target="_blank" class="footer-social-btn" aria-label="YouTube">YT</a>
