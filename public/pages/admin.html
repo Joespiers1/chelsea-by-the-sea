@@ -148,6 +148,27 @@
     .image-zone-actions .btn { flex: 1; text-align: center; cursor: pointer; padding: 0.5rem 0.75rem; border-radius: 1px; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
     .image-zone-actions .btn-primary { background: var(--color-accent); color: #fff; border: none; }
     .image-zone-actions .btn-danger { background: #c0392b; color: #fff; border: none; }
+
+    /* NAV EDITOR */
+    .nav-link-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 0.5px solid var(--color-line); cursor: grab; }
+    .nav-link-row:active { cursor: grabbing; }
+    .nav-link-row.dragging { opacity: 0.4; }
+    .nav-link-row.drag-over { border-top: 2px solid var(--color-accent); }
+    .nav-link-drag { color: var(--color-mist); font-size: 14px; flex-shrink: 0; user-select: none; }
+    .nav-link-fields { display: flex; gap: 8px; flex: 1; }
+    .nav-link-fields input { padding: 6px 8px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 12px; font-family: 'DM Sans', sans-serif; background: var(--color-bg); color: var(--color-ink); }
+    .nav-link-fields .nav-lbl { flex: 1; }
+    .nav-link-fields .nav-url { flex: 1.5; font-family: monospace; font-size: 11px; }
+    .nav-link-toggle { width: 32px; height: 18px; border-radius: 9px; border: none; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .nav-link-toggle.on { background: var(--color-accent); }
+    .nav-link-toggle.off { background: var(--color-mist); opacity: 0.4; }
+    .nav-link-toggle::after { content: ''; position: absolute; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: left 0.2s; }
+    .nav-link-toggle.on::after { left: 16px; }
+    .nav-link-toggle.off::after { left: 2px; }
+    .nav-link-remove { background: none; border: none; color: #c0392b; font-size: 14px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+    .ig-pill-row { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 0.5px solid var(--color-line); }
+    .ig-pill-row input { flex: 1; padding: 6px 8px; border: 0.5px solid var(--color-line); border-radius: 4px; font-size: 12px; font-family: 'DM Sans', sans-serif; background: var(--color-bg); color: var(--color-ink); }
+    .ig-color-picker { width: 28px; height: 28px; border: none; padding: 0; cursor: pointer; background: none; border-radius: 50%; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -207,6 +228,9 @@
         </div>
         <div class="sidebar-link" onclick="showPanel('images', this)">
           Image Manager
+        </div>
+        <div class="sidebar-link" onclick="showPanel('naveditor', this)">
+          Nav Editor
         </div>
         <div class="sidebar-link" onclick="window.open('https://chelseabts.com', '_blank')">
           View Live Site
@@ -468,6 +492,77 @@
         <div id="image-manager-grid"></div>
       </div>
 
+      <!-- NAV EDITOR -->
+      <div class="admin-panel" id="panel-naveditor">
+        <div class="panel-header">
+          <h1 class="panel-title">Nav Editor</h1>
+          <p class="panel-sub">Edit navigation links, order, Book button, and Instagram pills — saves live instantly</p>
+        </div>
+
+        <div class="settings-grid">
+          <!-- LOGO -->
+          <div class="settings-card settings-card-full">
+            <div class="settings-card-title">Logo</div>
+            <div class="settings-card-body settings-two-col">
+              <div class="setting-group">
+                <label class="setting-label">Logo Text</label>
+                <input type="text" id="nav-logo-main" class="setting-input" value="Chelsea">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Logo Italic</label>
+                <input type="text" id="nav-logo-italic" class="setting-input" value="by the Sea">
+              </div>
+            </div>
+          </div>
+
+          <!-- NAV LINKS -->
+          <div class="settings-card settings-card-full">
+            <div class="settings-card-title">Navigation Links <button class="tbl-btn" style="float:right;margin-top:-4px;" onclick="addNavLink()">+ Add Link</button></div>
+            <div class="settings-card-body">
+              <p style="font-size:11px;color:var(--color-mist);margin-bottom:8px;">Drag to reorder. Toggle visibility to show/hide without deleting.</p>
+              <div id="nav-links-list"></div>
+            </div>
+          </div>
+
+          <!-- BOOK BUTTON -->
+          <div class="settings-card">
+            <div class="settings-card-title">Book Button</div>
+            <div class="settings-card-body">
+              <div class="setting-group">
+                <label class="setting-label">Button Text</label>
+                <input type="text" id="nav-book-text" class="setting-input" value="Book">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Button URL</label>
+                <input type="text" id="nav-book-url" class="setting-input" value="/pages/body-shop.html#book">
+              </div>
+              <div class="setting-group">
+                <label class="setting-label">Mobile Button Text</label>
+                <input type="text" id="nav-book-mobile-text" class="setting-input" value="Book a Treatment">
+              </div>
+              <div class="setting-row">
+                <label class="setting-label">Open in new tab</label>
+                <input type="checkbox" id="nav-book-newtab">
+              </div>
+            </div>
+          </div>
+
+          <!-- IG PILLS -->
+          <div class="settings-card">
+            <div class="settings-card-title">Instagram Pills <button class="tbl-btn" style="float:right;margin-top:-4px;" onclick="addIgPill()">+ Add</button></div>
+            <div class="settings-card-body">
+              <div id="nav-ig-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button class="settings-preview-btn" onclick="previewNav()">Preview on Live Site</button>
+          <button class="settings-save-btn" id="nav-save-btn" onclick="saveNavConfig()">Save &amp; Publish</button>
+        </div>
+        <p class="settings-status" id="nav-status"></p>
+      </div>
+
     </div>
   </div>
 </div>
@@ -718,6 +813,144 @@
     }
   }
 
+  // ── NAV EDITOR ──
+  let navLinks = [
+    { label: 'Body Shop', url: '/pages/body-shop.html', visible: true },
+    { label: 'Shop', url: '/pages/shop.html', visible: true },
+    { label: 'Blue', url: '/pages/blue.html', visible: true },
+    { label: 'Turo', url: '/pages/turo.html', visible: true },
+    { label: 'Content', url: '/pages/content.html', visible: true },
+    { label: 'Coaching', url: '/pages/coaching.html', visible: true },
+  ];
+  let igPills = [
+    { handle: '@chelseabythesea', url: 'https://instagram.com/chelseabythesea', color: '#9dbfb8' },
+    { handle: '@chelseas_bodyshop', url: 'https://instagram.com/chelseas_bodyshop', color: '#c4a882' },
+    { handle: '@blue_bythesea', url: 'https://instagram.com/blue_bythesea', color: '#7a9fb8' },
+  ];
+
+  function renderNavLinksEditor() {
+    const list = document.getElementById('nav-links-list');
+    if (!list) return;
+    list.innerHTML = navLinks.map((link, i) => `
+      <div class="nav-link-row" draggable="true" data-nav-idx="${i}">
+        <span class="nav-link-drag">&#9776;</span>
+        <div class="nav-link-fields">
+          <input type="text" class="nav-lbl" value="${link.label}" onchange="updateNavLink(${i},'label',this.value)" placeholder="Label">
+          <input type="text" class="nav-url" value="${link.url}" onchange="updateNavLink(${i},'url',this.value)" placeholder="/pages/...">
+        </div>
+        <button class="nav-link-toggle ${link.visible ? 'on' : 'off'}" onclick="toggleNavLink(${i})" title="${link.visible ? 'Visible' : 'Hidden'}"></button>
+        <button class="nav-link-remove" onclick="removeNavLink(${i})" title="Delete">&#10005;</button>
+      </div>
+    `).join('');
+    wireNavDrag();
+  }
+
+  function wireNavDrag() {
+    const rows = document.querySelectorAll('.nav-link-row[draggable]');
+    rows.forEach(row => {
+      row.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', row.dataset.navIdx);
+        row.classList.add('dragging');
+      });
+      row.addEventListener('dragend', () => row.classList.remove('dragging'));
+      row.addEventListener('dragover', e => { e.preventDefault(); row.classList.add('drag-over'); });
+      row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
+      row.addEventListener('drop', e => {
+        e.preventDefault();
+        row.classList.remove('drag-over');
+        const from = parseInt(e.dataTransfer.getData('text/plain'));
+        const to = parseInt(row.dataset.navIdx);
+        if (from !== to) {
+          const item = navLinks.splice(from, 1)[0];
+          navLinks.splice(to, 0, item);
+          renderNavLinksEditor();
+        }
+      });
+    });
+  }
+
+  window.updateNavLink = function(i, field, val) { navLinks[i][field] = val; };
+  window.toggleNavLink = function(i) { navLinks[i].visible = !navLinks[i].visible; renderNavLinksEditor(); };
+  window.removeNavLink = function(i) { if (confirm('Remove "' + navLinks[i].label + '"?')) { navLinks.splice(i, 1); renderNavLinksEditor(); } };
+  window.addNavLink = function() { navLinks.push({ label: 'New Page', url: '/pages/', visible: true }); renderNavLinksEditor(); };
+
+  function renderIgPillsEditor() {
+    const list = document.getElementById('nav-ig-list');
+    if (!list) return;
+    list.innerHTML = igPills.map((pill, i) => `
+      <div class="ig-pill-row">
+        <input type="color" class="ig-color-picker" value="${pill.color}" onchange="updateIgPill(${i},'color',this.value)">
+        <input type="text" value="${pill.handle}" onchange="updateIgPill(${i},'handle',this.value)" placeholder="@handle">
+        <input type="text" value="${pill.url}" onchange="updateIgPill(${i},'url',this.value)" placeholder="https://instagram.com/..." style="font-family:monospace;font-size:11px;">
+        <button class="nav-link-remove" onclick="removeIgPill(${i})">&#10005;</button>
+      </div>
+    `).join('');
+  }
+
+  window.updateIgPill = function(i, field, val) { igPills[i][field] = val; };
+  window.removeIgPill = function(i) { igPills.splice(i, 1); renderIgPillsEditor(); };
+  window.addIgPill = function() { igPills.push({ handle: '@newhandle', url: 'https://instagram.com/', color: '#9dbfb8' }); renderIgPillsEditor(); };
+
+  window.previewNav = function() { window.open('https://chelseabts.com', '_blank'); };
+
+  window.saveNavConfig = async function() {
+    const btn = document.getElementById('nav-save-btn');
+    const status = document.getElementById('nav-status');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    status.style.color = 'var(--color-mist)'; status.textContent = 'Saving...';
+    try {
+      const { saveSiteConfig } = await import('/js/firebase.js');
+      const { setDoc, doc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const { getFirestore, getApps } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+      const app2 = (await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js')).getApps()[0];
+      const db2 = getFirestore(app2);
+      await setDoc(doc(db2, 'config', 'nav'), {
+        logo: { main: document.getElementById('nav-logo-main')?.value || 'Chelsea', italic: document.getElementById('nav-logo-italic')?.value || 'by the Sea' },
+        links: navLinks,
+        book: {
+          text: document.getElementById('nav-book-text')?.value || 'Book',
+          url: document.getElementById('nav-book-url')?.value || '/pages/body-shop.html#book',
+          mobileText: document.getElementById('nav-book-mobile-text')?.value || 'Book a Treatment',
+          newTab: document.getElementById('nav-book-newtab')?.checked || false,
+        },
+        igPills: igPills,
+        updatedAt: serverTimestamp(),
+      });
+      status.style.color = '#0a5a52'; status.textContent = 'Saved! Nav is now live across all pages.';
+      btn.textContent = 'Save & Publish'; btn.disabled = false;
+    } catch(err) {
+      status.style.color = '#c0392b'; status.textContent = 'Error: ' + err.message;
+      btn.textContent = 'Save & Publish'; btn.disabled = false;
+    }
+  };
+
+  async function loadNavConfig() {
+    try {
+      const { getDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const { getFirestore } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const app2 = (await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js')).getApps()[0];
+      const db2 = getFirestore(app2);
+      const snap = await getDoc(doc(db2, 'config', 'nav'));
+      if (!snap.exists()) { renderNavLinksEditor(); renderIgPillsEditor(); return; }
+      const cfg = snap.data();
+      if (cfg.logo) {
+        document.getElementById('nav-logo-main').value = cfg.logo.main || 'Chelsea';
+        document.getElementById('nav-logo-italic').value = cfg.logo.italic || 'by the Sea';
+      }
+      if (cfg.links) navLinks = cfg.links;
+      if (cfg.book) {
+        document.getElementById('nav-book-text').value = cfg.book.text || 'Book';
+        document.getElementById('nav-book-url').value = cfg.book.url || '';
+        document.getElementById('nav-book-mobile-text').value = cfg.book.mobileText || '';
+        document.getElementById('nav-book-newtab').checked = cfg.book.newTab || false;
+      }
+      if (cfg.igPills) igPills = cfg.igPills;
+      renderNavLinksEditor();
+      renderIgPillsEditor();
+    } catch(e) { renderNavLinksEditor(); renderIgPillsEditor(); }
+  }
+
   window.handleLogin = async function(e) {
     e.preventDefault();
     const btn = document.getElementById('login-btn');
@@ -746,6 +979,7 @@
       document.getElementById('admin-user-email').textContent = user.email;
       loadAll();
       loadSettingsIntoForm();
+      loadNavConfig();
       if (window.initImageManager) window.initImageManager('#image-manager-grid');
     } else {
       document.getElementById('login-screen').style.display = 'flex';

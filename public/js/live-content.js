@@ -18,13 +18,15 @@ const db = getFirestore(app);
 
 async function fetchAndApply() {
   try {
-    const [imagesSnap, textSnap] = await Promise.all([
+    const [imagesSnap, textSnap, navSnap] = await Promise.all([
       getDoc(doc(db, 'config', 'images')),
-      getDoc(doc(db, 'config', 'text'))
+      getDoc(doc(db, 'config', 'text')),
+      getDoc(doc(db, 'config', 'nav'))
     ]);
 
     const images = imagesSnap.exists() ? imagesSnap.data() : {};
     const text = textSnap.exists() ? textSnap.data() : {};
+    const nav = navSnap.exists() ? navSnap.data() : null;
 
     // Apply images
     document.querySelectorAll('[data-image-zone]').forEach((el) => {
@@ -65,9 +67,78 @@ async function fetchAndApply() {
       }
     });
 
+    // Apply nav config
+    if (nav) applyNav(nav);
+
     window.dispatchEvent(new Event('live-content-applied'));
   } catch (err) {
     console.warn('[live-content] Failed to load:', err);
+  }
+}
+
+function applyNav(nav) {
+  // Logo
+  if (nav.logo) {
+    const logoText = document.getElementById('nav-logo-text');
+    const logoEm = document.getElementById('nav-logo-em-text');
+    if (logoText && nav.logo.main) logoText.textContent = nav.logo.main;
+    if (logoEm && nav.logo.italic) logoEm.textContent = nav.logo.italic;
+  }
+
+  // Desktop nav links
+  if (nav.links) {
+    const navLinksEl = document.querySelector('.nav-links');
+    const mobileMenu = document.getElementById('nav-mobile-menu');
+    if (navLinksEl) {
+      const visibleLinks = nav.links.filter(l => l.visible !== false);
+      navLinksEl.innerHTML = visibleLinks.map(l =>
+        '<a href="' + l.url + '">' + l.label + '</a>'
+      ).join('');
+    }
+    if (mobileMenu) {
+      const visibleLinks = nav.links.filter(l => l.visible !== false);
+      // Rebuild mobile menu: links + ig + book btn
+      let mobileHtml = visibleLinks.map(l =>
+        '<a href="' + l.url + '">' + l.label + '</a>'
+      ).join('');
+      // Mobile IG
+      if (nav.igPills && nav.igPills.length) {
+        mobileHtml += '<div class="mobile-ig">';
+        nav.igPills.forEach(p => {
+          mobileHtml += '<a href="' + p.url + '" target="_blank">' + p.handle + '</a>';
+        });
+        mobileHtml += '</div>';
+      }
+      // Mobile book button
+      if (nav.book) {
+        const target = nav.book.newTab ? ' target="_blank"' : '';
+        mobileHtml += '<a href="' + nav.book.url + '" class="nav-book-btn mobile-book"' + target + '>' + (nav.book.mobileText || nav.book.text || 'Book') + '</a>';
+      }
+      mobileMenu.innerHTML = mobileHtml;
+    }
+  }
+
+  // Book button
+  if (nav.book) {
+    const bookBtns = document.querySelectorAll('.nav-book-btn:not(.mobile-book)');
+    bookBtns.forEach(btn => {
+      btn.textContent = nav.book.text || 'Book';
+      btn.href = nav.book.url || '#';
+      if (nav.book.newTab) btn.setAttribute('target', '_blank');
+      else btn.removeAttribute('target');
+    });
+  }
+
+  // IG Pills
+  if (nav.igPills) {
+    const pillsContainer = document.querySelector('.nav-ig-pills');
+    if (pillsContainer) {
+      pillsContainer.innerHTML = nav.igPills.map(p =>
+        '<a href="' + p.url + '" target="_blank" class="ig-pill">' +
+        '<span class="ig-dot" style="background:' + (p.color || '#9dbfb8') + '"></span>' + p.handle +
+        '</a>'
+      ).join('');
+    }
   }
 }
 
