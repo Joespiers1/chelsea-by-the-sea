@@ -1,5 +1,6 @@
 // /public/js/admin-images.js
 // Image Manager: 15-zone grid, optimize -> upload -> Firestore
+// Uses modular Firebase SDK (matches firebase.js)
 
 const IMAGE_ZONES = [
   { key: 'home-hero',            label: 'Homepage Hero',              page: 'Homepage' },
@@ -22,6 +23,36 @@ const IMAGE_ZONES = [
 const MAX_EDGE = 2000;
 const WEBP_QUALITY = 0.85;
 
+// Firebase module references — loaded once on init
+let _db = null;
+let _storage = null;
+let _firestoreMod = null;
+let _storageMod = null;
+
+async function ensureFirebase() {
+  if (_db && _storage) return;
+  const { initializeApp, getApps } = await import(
+    "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"
+  );
+  _firestoreMod = await import(
+    "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"
+  );
+  _storageMod = await import(
+    "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js"
+  );
+  const firebaseConfig = {
+    apiKey: "AIzaSyCR0IAighT6BtycEJa9VaRbZNYcZQuIYAw",
+    authDomain: "chelsea-by-the-sea.firebaseapp.com",
+    projectId: "chelsea-by-the-sea",
+    storageBucket: "chelsea-by-the-sea.firebasestorage.app",
+    messagingSenderId: "976355830273",
+    appId: "1:976355830273:web:fd5a6ef43ca9c6a124ee00"
+  };
+  const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+  _db = _firestoreMod.getFirestore(app);
+  _storage = _storageMod.getStorage(app);
+}
+
 function slugify(name) {
   return name
     .toLowerCase()
@@ -38,60 +69,68 @@ function bytesToReadable(bytes) {
 }
 
 function loadImage(file) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
+  return new Promise(function(resolve, reject) {
+    var img = new Image();
+    img.onload = function() { resolve(img); };
     img.onerror = reject;
     img.src = URL.createObjectURL(file);
   });
 }
 
 async function optimizeImage(file) {
-  const img = await loadImage(file);
-  const scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
-  const w = Math.round(img.width * scale);
-  const h = Math.round(img.height * scale);
+  var img = await loadImage(file);
+  var scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
+  var w = Math.round(img.width * scale);
+  var h = Math.round(img.height * scale);
 
-  const canvas = document.createElement('canvas');
+  var canvas = document.createElement('canvas');
   canvas.width = w;
   canvas.height = h;
-  const ctx = canvas.getContext('2d');
+  var ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0, w, h);
 
-  const blob = await new Promise((resolve) => {
+  var blob = await new Promise(function(resolve) {
     canvas.toBlob(resolve, 'image/webp', WEBP_QUALITY);
   });
 
   URL.revokeObjectURL(img.src);
 
   if (!blob) return { blob: file, ext: file.name.split('.').pop() || 'jpg', optimized: false };
-  return { blob, ext: 'webp', optimized: true, width: w, height: h };
+  return { blob: blob, ext: 'webp', optimized: true, width: w, height: h };
 }
 
 async function getImagesConfig() {
-  const snap = await firebase.firestore().doc('config/images').get();
-  return snap.exists ? snap.data() : {};
+  await ensureFirebase();
+  var snap = await _firestoreMod.getDoc(
+    _firestoreMod.doc(_db, 'config', 'images')
+  );
+  return snap.exists() ? snap.data() : {};
 }
 
 async function saveZoneToFirestore(zoneKey, data) {
-  await firebase.firestore().doc('config/images').set(
-    { [zoneKey]: { ...data, uploadedAt: firebase.firestore.FieldValue.serverTimestamp() } },
+  await ensureFirebase();
+  await _firestoreMod.setDoc(
+    _firestoreMod.doc(_db, 'config', 'images'),
+    { [zoneKey]: { ...data, uploadedAt: _firestoreMod.serverTimestamp() } },
     { merge: true }
   );
 }
 
 async function deleteZoneInFirestore(zoneKey) {
-  var FieldValue = firebase.firestore.FieldValue;
-  await firebase.firestore().doc('config/images').set(
-    { [zoneKey]: FieldValue.delete() },
+  await ensureFirebase();
+  await _firestoreMod.setDoc(
+    _firestoreMod.doc(_db, 'config', 'images'),
+    { [zoneKey]: _firestoreMod.deleteField() },
     { merge: true }
   );
 }
 
 async function deleteStorageFile(path) {
   if (!path) return;
+  await ensureFirebase();
   try {
-    await firebase.storage().ref(path).delete();
+    var fileRef = _storageMod.ref(_storage, path);
+    await _storageMod.deleteObject(fileRef);
   } catch (e) {
     console.warn('Storage delete failed (may not exist):', path, e.message);
   }
@@ -99,47 +138,46 @@ async function deleteStorageFile(path) {
 
 function renderZoneCard(zone, current) {
   var hasImage = current && current.url;
-  return `
-    <div class="image-zone-card" data-zone="${zone.key}">
-      <div class="image-zone-header">
-        <div>
-          <div class="image-zone-label">${zone.label}</div>
-          <div class="image-zone-page">${zone.page}</div>
-        </div>
-        <code class="image-zone-key">${zone.key}</code>
-      </div>
-      <div class="image-zone-preview">
-        ${hasImage
-          ? `<img src="${current.url}" alt="${zone.label}" loading="lazy" />`
-          : `<div class="image-zone-empty">No image uploaded</div>`}
-      </div>
-      <div class="image-zone-meta">
-        ${hasImage ? `<span>${current.filename || ''}</span>` : ''}
-      </div>
-      <div class="image-zone-progress" hidden>
-        <div class="image-zone-progress-bar"></div>
-        <div class="image-zone-progress-text">0%</div>
-      </div>
-      <div class="image-zone-stats" hidden></div>
-      <div class="image-zone-actions">
-        <label class="btn btn-primary">
-          ${hasImage ? 'Replace' : 'Upload'}
-          <input type="file" accept="image/*" hidden data-upload="${zone.key}" />
-        </label>
-        ${hasImage ? `<button class="btn btn-danger" data-delete="${zone.key}">Delete</button>` : ''}
-      </div>
-    </div>
-  `;
+  return '<div class="image-zone-card" data-zone="' + zone.key + '">' +
+    '<div class="image-zone-header">' +
+      '<div>' +
+        '<div class="image-zone-label">' + zone.label + '</div>' +
+        '<div class="image-zone-page">' + zone.page + '</div>' +
+      '</div>' +
+      '<code class="image-zone-key">' + zone.key + '</code>' +
+    '</div>' +
+    '<div class="image-zone-preview">' +
+      (hasImage
+        ? '<img src="' + current.url + '" alt="' + zone.label + '" loading="lazy" />'
+        : '<div class="image-zone-empty">No image uploaded</div>') +
+    '</div>' +
+    '<div class="image-zone-meta">' +
+      (hasImage ? '<span>' + (current.filename || '') + '</span>' : '') +
+    '</div>' +
+    '<div class="image-zone-progress" hidden>' +
+      '<div class="image-zone-progress-bar"></div>' +
+      '<div class="image-zone-progress-text">0%</div>' +
+    '</div>' +
+    '<div class="image-zone-stats" hidden></div>' +
+    '<div class="image-zone-actions">' +
+      '<label class="btn btn-primary">' +
+        (hasImage ? 'Replace' : 'Upload') +
+        '<input type="file" accept="image/*" hidden data-upload="' + zone.key + '" />' +
+      '</label>' +
+      (hasImage ? '<button class="btn btn-danger" data-delete="' + zone.key + '">Delete</button>' : '') +
+    '</div>' +
+  '</div>';
 }
 
 async function renderGrid(container) {
   container.innerHTML = '<div class="image-grid-loading">Loading images...</div>';
   var config = await getImagesConfig();
-  container.innerHTML = `
-    <div class="image-grid">
-      ${IMAGE_ZONES.map(function(z) { return renderZoneCard(z, config[z.key]); }).join('')}
-    </div>
-  `;
+  var html = '<div class="image-grid">';
+  for (var i = 0; i < IMAGE_ZONES.length; i++) {
+    html += renderZoneCard(IMAGE_ZONES[i], config[IMAGE_ZONES[i].key]);
+  }
+  html += '</div>';
+  container.innerHTML = html;
   wireGridEvents(container);
 }
 
@@ -162,6 +200,8 @@ function wireGridEvents(container) {
 }
 
 async function handleUpload(zoneKey, file, container) {
+  await ensureFirebase();
+
   var card = container.querySelector('.image-zone-card[data-zone="' + zoneKey + '"]');
   var progressEl = card.querySelector('.image-zone-progress');
   var progressBar = card.querySelector('.image-zone-progress-bar');
@@ -176,35 +216,36 @@ async function handleUpload(zoneKey, file, container) {
   try {
     var originalSize = file.size;
     var result = await optimizeImage(file);
-    var blob = result.blob, ext = result.ext, optimized = result.optimized, width = result.width, height = result.height;
 
     statsEl.hidden = false;
-    statsEl.innerHTML = optimized
-      ? 'Original: ' + bytesToReadable(originalSize) + ' &rarr; Optimized: ' + bytesToReadable(blob.size) + ' (' + width + '&times;' + height + ')'
-      : 'Uploading original: ' + bytesToReadable(originalSize) + ' (WebP not supported)';
+    statsEl.innerHTML = result.optimized
+      ? 'Original: ' + bytesToReadable(originalSize) + ' &rarr; Optimized: ' + bytesToReadable(result.blob.size) + ' (' + result.width + '&times;' + result.height + ')'
+      : 'Uploading original: ' + bytesToReadable(originalSize);
 
     var timestamp = Date.now();
-    var filename = timestamp + '-' + slugify(file.name) + '.' + ext;
+    var filename = timestamp + '-' + slugify(file.name) + '.' + result.ext;
     var path = 'site-images/' + zoneKey + '/' + filename;
-    var ref = firebase.storage().ref(path);
+    var fileRef = _storageMod.ref(_storage, path);
 
-    var task = ref.put(blob, { contentType: ext === 'webp' ? 'image/webp' : file.type });
+    progressText.textContent = 'Uploading...';
 
-    task.on('state_changed',
-      function(snap) {
-        var pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-        progressBar.style.width = pct + '%';
-        progressText.textContent = pct + '%';
-      },
-      function(err) {
-        console.error('Upload error:', err);
-        alert('Upload failed: ' + err.message);
-        progressEl.hidden = true;
-      }
-    );
+    var uploadTask = _storageMod.uploadBytesResumable(fileRef, result.blob, {
+      contentType: result.ext === 'webp' ? 'image/webp' : file.type
+    });
 
-    await task;
-    var url = await ref.getDownloadURL();
+    await new Promise(function(resolve, reject) {
+      uploadTask.on('state_changed',
+        function(snap) {
+          var pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+          progressBar.style.width = pct + '%';
+          progressText.textContent = pct + '%';
+        },
+        function(err) { reject(err); },
+        function() { resolve(); }
+      );
+    });
+
+    var url = await _storageMod.getDownloadURL(fileRef);
 
     // Get old path before overwriting
     var existing = await getImagesConfig();
@@ -220,7 +261,7 @@ async function handleUpload(zoneKey, file, container) {
     progressText.textContent = 'Done';
     await renderGrid(container);
   } catch (err) {
-    console.error(err);
+    console.error('Upload error:', err);
     alert('Upload failed: ' + err.message);
     progressEl.hidden = true;
   }
@@ -239,7 +280,7 @@ async function handleDelete(zoneKey, container) {
   }
 }
 
-// Public API — called from admin.html after auth succeeds
+// Public API
 window.initImageManager = function(containerSelector) {
   var container = document.querySelector(containerSelector);
   if (!container) {
