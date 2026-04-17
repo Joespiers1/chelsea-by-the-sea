@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/theme.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/curator.css">
+  <link rel="stylesheet" href="/css/edit-mode.css">
   <script type="module" src="/js/theme.js"></script>
   <script defer src="/js/main.js"></script>
 </head>
@@ -69,8 +70,8 @@
     <section class="page-hero" style="min-height: 320px;">
       <div class="page-hero-content">
         <div class="section-eyebrow">Chelsea by the Sea</div>
-        <h1 class="page-hero-title" style="font-size: 44px;">The BTS<br><em>Collection</em></h1>
-        <p class="page-hero-sub">Athleisure, nutrition, skincare, candles, coffee, pet — all curated and branded by Chelsea.</p>
+        <h1 class="page-hero-title" data-text-zone="shop-hero-title" style="font-size: 44px;">The BTS<br><em>Collection</em></h1>
+        <p class="page-hero-sub" data-text-zone="shop-hero-subtitle">Athleisure, nutrition, skincare, candles, coffee, pet — all curated and branded by Chelsea.</p>
       </div>
       <div class="page-hero-img">
         <img src="/assets/images/shop-hero.jpg" alt="BTS Shop" data-image-zone="shop-hero" onerror="this.style.display='none';document.getElementById('shop-hero-ph').style.display='flex'">
@@ -361,7 +362,9 @@
   </div>
 
   <script type="module" src="/js/firebase.js"></script>
-  <script type="module" src="/js/image-loader.js"></script>
+  <script type="module" src="/js/admin-auth.js"></script>
+  <script type="module" src="/js/live-content.js"></script>
+  <script type="module" src="/js/edit-mode.js"></script>
 
   <script type="module">
   import PRODUCTS, { getProduct } from '/js/products.js';

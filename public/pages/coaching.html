@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/theme.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/curator.css">
+  <link rel="stylesheet" href="/css/edit-mode.css">
   <script type="module" src="/js/theme.js"></script>
   <script defer src="/js/main.js"></script>
 </head>
@@ -65,8 +66,8 @@
     <section class="page-hero">
       <div class="page-hero-content">
         <div class="section-eyebrow">Virtual Coaching · Coming Soon</div>
-        <h1 class="page-hero-title">Live the life<br><em>you designed.</em></h1>
-        <p class="page-hero-sub">One-on-one virtual coaching covering fitness, nutrition, lifestyle design, and entrepreneurship. Built around you, delivered from Laguna Beach.</p>
+        <h1 class="page-hero-title" data-text-zone="coaching-hero-title">Live the life<br><em>you designed.</em></h1>
+        <p class="page-hero-sub" data-text-zone="coaching-hero-subtitle">One-on-one virtual coaching covering fitness, nutrition, lifestyle design, and entrepreneurship. Built around you, delivered from Laguna Beach.</p>
         <div class="hero-actions">
           <a href="#waitlist" class="btn-primary">Join the Waitlist</a>
           <a href="#offerings" class="btn-ghost">See Offerings</a>
@@ -214,6 +215,8 @@
     </div>
   </footer>
   <script type="module" src="/js/firebase.js"></script>
-  <script type="module" src="/js/image-loader.js"></script>
+  <script type="module" src="/js/admin-auth.js"></script>
+  <script type="module" src="/js/live-content.js"></script>
+  <script type="module" src="/js/edit-mode.js"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/css/theme.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/curator.css">
+  <link rel="stylesheet" href="/css/edit-mode.css">
   <script type="module" src="/js/theme.js"></script>
   <script defer src="/js/main.js"></script>
 </head>
@@ -72,10 +73,10 @@
       <div class="hero-left">
         <div class="hero-eyebrow" id="hero-eyebrow-text">Laguna Beach · Orange County</div>
         <h1 class="hero-title">
-          <span id="hero-h1a">Wellness, style &amp;</span><br>
+          <span id="hero-h1a" data-text-zone="home-hero-title">Wellness, style &amp;</span><br>
           <em id="hero-h1b">the sea.</em>
         </h1>
-        <p class="hero-sub" id="hero-sub-text">Body contouring, coastal living, premium products — Chelsea's world, curated with intention.</p>
+        <p class="hero-sub" id="hero-sub-text" data-text-zone="home-hero-subtitle">Body contouring, coastal living, premium products — Chelsea's world, curated with intention.</p>
         <div class="hero-actions">
           <a href="/pages/body-shop.html#book" class="btn-primary"><span id="hero-cta-text">Book a Treatment</span></a>
           <a href="/pages/shop.html" class="btn-ghost">Explore the Shop</a>
@@ -167,8 +168,8 @@
           </div>
           <div class="world-card-body">
             <span class="card-tag">Body · Services</span>
-            <h3 class="card-title">Chelsea's Body Shop</h3>
-            <p class="card-desc">Precision contouring treatments in Laguna Beach. Results-driven, luxury experience.</p>
+            <h3 class="card-title" data-text-zone="home-world-bodyshop-title">Chelsea's Body Shop</h3>
+            <p class="card-desc" data-text-zone="home-world-bodyshop-tagline">Precision contouring treatments in Laguna Beach. Results-driven, luxury experience.</p>
             <a href="/pages/body-shop.html" class="card-link">Book now →</a>
           </div>
         </div>
@@ -182,8 +183,8 @@
           </div>
           <div class="world-card-body">
             <span class="card-tag">Wellness · Products</span>
-            <h3 class="card-title">The BTS Shop</h3>
-            <p class="card-desc">Athleisure, nutrition, skincare, candles, coffee — all under the Chelsea by the Sea label.</p>
+            <h3 class="card-title" data-text-zone="home-world-shop-title">The BTS Shop</h3>
+            <p class="card-desc" data-text-zone="home-world-shop-tagline">Athleisure, nutrition, skincare, candles, coffee — all under the Chelsea by the Sea label.</p>
             <a href="/pages/shop.html" class="card-link">Shop the collection →</a>
           </div>
         </div>
@@ -197,8 +198,8 @@
           </div>
           <div class="world-card-body">
             <span class="card-tag card-tag-soon">Coming Soon</span>
-            <h3 class="card-title">Virtual Coaching</h3>
-            <p class="card-desc">One-on-one lifestyle, fitness, and entrepreneur coaching. Join the waitlist for early access.</p>
+            <h3 class="card-title" data-text-zone="home-world-coaching-title">Virtual Coaching</h3>
+            <p class="card-desc" data-text-zone="home-world-coaching-tagline">One-on-one lifestyle, fitness, and entrepreneur coaching. Join the waitlist for early access.</p>
             <a href="/pages/coaching.html" class="card-link">Join the waitlist →</a>
           </div>
         </div>
@@ -321,7 +322,9 @@
     </div>
   </footer>
   <script type="module" src="/js/firebase.js"></script>
-  <script type="module" src="/js/image-loader.js"></script>
+  <script type="module" src="/js/admin-auth.js"></script>
+  <script type="module" src="/js/live-content.js"></script>
+  <script type="module" src="/js/edit-mode.js"></script>
   <script type="text/javascript">
   (function(){var i,e,d=document,s="script";i=d.createElement("script");i.async=1;i.charset="UTF-8";i.src="https://cdn.curator.io/published/19b94d14-da58-4413-8bd6-e04fa6c5e521.js";e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);})();
   </script>
