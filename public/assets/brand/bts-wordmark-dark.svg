@@ -1,0 +1,8 @@
+<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BTS Wordmark">
+  <!-- Primary wordmark — dark on transparent -->
+  <text x="300" y="100" text-anchor="middle" dominant-baseline="central" font-family="Georgia, 'Playfair Display', serif" font-size="72" font-weight="400" fill="#18181a" letter-spacing="2">Chelsea</text>
+  <text x="300" y="155" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="36" font-style="italic" fill="#1e4d6b" letter-spacing="1">by the Sea</text>
+  <line x1="180" y1="115" x2="270" y2="115" stroke="#9dbfb8" stroke-width="1"/>
+  <line x1="330" y1="115" x2="420" y2="115" stroke="#9dbfb8" stroke-width="1"/>
+  <circle cx="300" cy="115" r="2.5" fill="#9dbfb8"/>
+</svg>

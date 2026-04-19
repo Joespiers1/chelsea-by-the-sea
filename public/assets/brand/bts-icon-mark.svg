@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BTS Icon Mark">
+  <!-- Icon mark — stacked BTS monogram with wave -->
+  <rect width="200" height="200" fill="none"/>
+
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="90" stroke="#1e4d6b" stroke-width="1.5" fill="none"/>
+
+  <!-- BTS monogram -->
+  <text x="100" y="82" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="56" font-weight="400" fill="#1e4d6b" letter-spacing="4">BTS</text>
+
+  <!-- Wave motif -->
+  <path d="M 40 115 Q 55 105 70 115 Q 85 125 100 115 Q 115 105 130 115 Q 145 125 160 115" stroke="#9dbfb8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Subtitle -->
+  <text x="100" y="145" text-anchor="middle" font-family="'DM Sans', system-ui, sans-serif" font-size="10" fill="#9dbfb8" letter-spacing="5">BY THE SEA</text>
+</svg>

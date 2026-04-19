@@ -1,0 +1,11 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BTS Monogram Pattern">
+  <!-- Repeating BTS monogram pattern — for packaging, wrapping, backgrounds -->
+  <rect width="400" height="400" fill="#f7f4ef"/>
+  <defs>
+    <pattern id="mono" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <text x="50" y="45" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="18" fill="#1e4d6b" opacity="0.08" letter-spacing="2">BTS</text>
+      <path d="M 20 60 Q 28 54 35 60 Q 43 66 50 60 Q 58 54 65 60 Q 73 66 80 60" stroke="#9dbfb8" stroke-width="0.5" fill="none" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#mono)"/>
+</svg>

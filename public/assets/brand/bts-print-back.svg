@@ -1,0 +1,30 @@
+<svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BTS Back Print">
+  <!-- Back print design — large format for hoodie/tee backs -->
+  <rect width="500" height="600" fill="none"/>
+
+  <!-- Large BTS -->
+  <text x="250" y="180" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="140" font-weight="400" fill="#1e4d6b" letter-spacing="10">BTS</text>
+
+  <!-- Triple wave -->
+  <g opacity="0.8">
+    <path d="M 80 230 Q 105 210 130 230 Q 155 250 180 230 Q 205 210 230 230 Q 255 250 280 230 Q 305 210 330 230 Q 355 250 380 230 Q 405 210 420 230" stroke="#9dbfb8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M 80 250 Q 105 230 130 250 Q 155 270 180 250 Q 205 230 230 250 Q 255 270 280 250 Q 305 230 330 250 Q 355 270 380 250 Q 405 230 420 250" stroke="#9dbfb8" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <path d="M 80 270 Q 105 250 130 270 Q 155 290 180 270 Q 205 250 230 270 Q 255 290 280 270 Q 305 250 330 270 Q 355 290 380 270 Q 405 250 420 270" stroke="#9dbfb8" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  </g>
+
+  <!-- Full brand name -->
+  <text x="250" y="340" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="36" fill="#18181a" letter-spacing="2">Chelsea</text>
+  <text x="250" y="380" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="22" font-style="italic" fill="#1e4d6b">by the Sea</text>
+
+  <!-- Divider -->
+  <line x1="180" y1="410" x2="245" y2="410" stroke="#9dbfb8" stroke-width="1"/>
+  <line x1="255" y1="410" x2="320" y2="410" stroke="#9dbfb8" stroke-width="1"/>
+  <circle cx="250" cy="410" r="2.5" fill="#9dbfb8"/>
+
+  <!-- Location block -->
+  <text x="250" y="450" text-anchor="middle" font-family="'DM Sans', system-ui, sans-serif" font-size="11" fill="#9dbfb8" letter-spacing="6">LAGUNA BEACH</text>
+  <text x="250" y="470" text-anchor="middle" font-family="'DM Sans', system-ui, sans-serif" font-size="11" fill="#9dbfb8" letter-spacing="6">CALIFORNIA</text>
+
+  <!-- Website -->
+  <text x="250" y="530" text-anchor="middle" font-family="'DM Sans', system-ui, sans-serif" font-size="9" fill="#1e4d6b" letter-spacing="4">CHELSEABTS.COM</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BTS Chest Print">
+  <!-- Chest print design — for hoodies, tees, left chest placement -->
+
+  <!-- BTS text -->
+  <text x="200" y="70" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="60" font-weight="400" fill="#1e4d6b" letter-spacing="6">BTS</text>
+
+  <!-- Wave -->
+  <path d="M 110 95 Q 125 83 140 95 Q 155 107 170 95 Q 185 83 200 95 Q 215 107 230 95 Q 245 83 260 95 Q 275 107 290 95" stroke="#9dbfb8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Tagline -->
+  <text x="200" y="135" text-anchor="middle" font-family="'DM Sans', system-ui, sans-serif" font-size="10" fill="#1e4d6b" letter-spacing="6">CHELSEA BY THE SEA</text>
+
+  <!-- Location -->
+  <text x="200" y="160" text-anchor="middle" font-family="'DM Sans', system-ui, sans-serif" font-size="8" fill="#9dbfb8" letter-spacing="4">LAGUNA BEACH · CA</text>
+</svg>
